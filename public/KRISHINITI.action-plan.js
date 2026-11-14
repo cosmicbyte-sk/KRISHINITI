@@ -852,10 +852,26 @@
     return sorted.length % 2 !== 0 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
   }
 
+  const DEFAULT_METRIC_DEFINITIONS = {
+    totalRainfallMm: { label: "Total rainfall", unit: "mm" },
+    meanTemperatureC: { label: "Mean temperature", unit: "°C" },
+    rainySeasonOnsetDoy: { label: "Rainy-season onset", unit: "day of year" },
+    longestRainySeasonDrySpell: { label: "Longest rainy-season dry spell", unit: "days" },
+    hotDaysAbove35C: { label: "Hot days above 35°C", unit: "days" },
+    hotDaysAbove40C: { label: "Hot days above 40°C", unit: "days" },
+    referenceEt0Mm: { label: "Reference ET₀ (Hargreaves)", unit: "mm" },
+    rootWetness: { label: "Mean root-zone wetness", unit: "0–1" },
+    surfaceWetness: { label: "Mean surface wetness", unit: "0–1" },
+    solarRadiationMjM2: { label: "Mean daily solar radiation", unit: "MJ/m²/day" },
+    relativeHumidityPct: { label: "Mean relative humidity", unit: "%" }
+  };
+
   function buildMetricChart(data, metricId) {
-    const definition = data.metricDefinitions[metricId];
+    const definition = (data?.metricDefinitions && data.metricDefinitions[metricId]) ||
+                       DEFAULT_METRIC_DEFINITIONS[metricId] ||
+                       { label: metricId, unit: "" };
     if (!definition) return "";
-    let points = getSeriesValues(data.annualSeries, metricId);
+    let points = getSeriesValues(data?.annualSeries || [], metricId);
 
     if (activeDuration !== "all" && points.length > 0) {
       const numYears = Number(activeDuration);
@@ -2207,17 +2223,18 @@
 
   /* ---------------- MASTER RENDER ---------------- */
   function render(data, profile) {
-    renderAnswerCard(data, profile);
-    renderFarmDiagnosis(data, profile);
-    renderRoadmap(data, profile);
-    renderSeasonalCalendar(data.actionPlan, profile);
-    renderActionTracker(data.actionPlan, profile);
-    renderCoreCharts(data);
-    renderRotations(data.actionPlan);
-    renderSecondaryCharts(data);
-    renderDecadalTable(data.actionPlan);
-    renderFooter(data);
-    attachChartHoverInteractions(data);
+    if (!data) return;
+    try { renderAnswerCard(data, profile); } catch (e) { console.error("renderAnswerCard error:", e); }
+    try { renderFarmDiagnosis(data, profile); } catch (e) { console.error("renderFarmDiagnosis error:", e); }
+    try { renderRoadmap(data, profile); } catch (e) { console.error("renderRoadmap error:", e); }
+    try { renderSeasonalCalendar(data.actionPlan, profile); } catch (e) { console.error("renderSeasonalCalendar error:", e); }
+    try { renderActionTracker(data.actionPlan, profile); } catch (e) { console.error("renderActionTracker error:", e); }
+    try { renderCoreCharts(data); } catch (e) { console.error("renderCoreCharts error:", e); }
+    try { renderRotations(data.actionPlan); } catch (e) { console.error("renderRotations error:", e); }
+    try { renderSecondaryCharts(data); } catch (e) { console.error("renderSecondaryCharts error:", e); }
+    try { renderDecadalTable(data.actionPlan); } catch (e) { console.error("renderDecadalTable error:", e); }
+    try { renderFooter(data); } catch (e) { console.error("renderFooter error:", e); }
+    try { attachChartHoverInteractions(data); } catch (e) { console.error("attachChartHoverInteractions error:", e); }
   }
 
   /* ---------------- CHART INTERACTIVE HOVER & SLIDER TRACKER ---------------- */
@@ -2236,7 +2253,7 @@
       if (!svg || !overlay || !trackerGroup || !trackerLine || !trackerDot || !tooltip) return;
 
       const metricId = svg.dataset.metric;
-      const definition = data.metricDefinitions?.[metricId];
+      const definition = (data.metricDefinitions && data.metricDefinitions[metricId]) || DEFAULT_METRIC_DEFINITIONS[metricId];
       if (!definition) return;
 
       let points = getSeriesValues(data.annualSeries, metricId);
@@ -2518,8 +2535,8 @@
         if (data && data.status !== "unavailable") {
           clientPlanCache.set(cacheKey, data);
           currentRawData = data;
-          render(data, profile);
           showState("action-plan-content");
+          render(data, profile);
           isLoading = false;
 
           // For GitHub Pages / static deployments, client generation is complete and instantaneous!
@@ -2569,8 +2586,8 @@
     }
     clientPlanCache.set(cacheKey, data);
     currentRawData = data;
-    render(data, profile);
     showState("action-plan-content");
+    render(data, profile);
     isLoading = false;
   }
 
