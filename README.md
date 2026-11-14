@@ -35,7 +35,7 @@ KRISHINITI is an intelligent, grounded agricultural advisory platform designed t
 ```bash
 # Clone the repository
 git clone https://github.com/<your-username>/<your-repo-name>.git
-cd KRISHINITI-PROJECT
+cd KRISHINITI
 
 # Install dependencies
 npm install

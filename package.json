@@ -1,5 +1,5 @@
 {
-  "name": "krishiniti-project",
+  "name": "krishiniti",
   "version": "1.0.0",
   "description": "KRISHINITI — Evidence-based agricultural decision-support system",
   "main": "server.js",
