@@ -1,0 +1,1700 @@
+﻿/* KRISHINITI.farm.css — living farm background (Select farm · Farm profile · Land report) + real-field satellite view.
+   Everything is scoped to body.fx-on (only those three pages) or to .fieldview, so the Overview/language pages are untouched. */
+
+/* ---------- 3D farm scene ---------- */
+#fx-scene { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .8s ease; }
+body.fx-on #fx-scene { opacity: 1; }
+body.fx-on #kf { display: none; }                                   /* swap the soft blobs for the real scene */
+body.fx-on { background: #10281b; }
+
+/* weather chip */
+.fx-hud { position: fixed; left: 18px; bottom: 16px; z-index: 45; display: none; align-items: center; gap: 10px; padding: 7px 8px 7px 13px; border-radius: 99px; color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .2px; background: rgba(9, 32, 20, .72); border: 1px solid rgba(255, 255, 255, .18); box-shadow: 0 8px 24px rgba(0, 0, 0, .22); backdrop-filter: blur(6px); }
+body.fx-on .fx-hud { display: inline-flex; }
+.fx-wx { white-space: nowrap; }
+.fx-hud:not(:hover) .fx-live { display: none; }
+.fx-live { font-size: .56rem; letter-spacing: 1.2px; color: var(--gold); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px; }
+.fx-live::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #ff6b5a; animation: fxPulse 1.6s ease-in-out infinite; }
+.fx-paused .fx-live::before, .fx-static .fx-live::before { animation: none; background: #9aa; }
+.fx-pause { width: 24px; height: 24px; border-radius: 50%; border: 0; padding: 0; background: rgba(255, 255, 255, .16); color: #fff; font-size: .55rem; letter-spacing: -1px; line-height: 1; }
+.fx-pause:hover { background: rgba(255, 255, 255, .3); }
+.fx-static .fx-pause { display: none; }
+@keyframes fxPulse { 50% { opacity: .25; } }
+
+/* crop growth-cycle strip: where each of the five plots is in its season (peeks on arrival, opens on hover) */
+.fx-strip { position: absolute; left: 0; bottom: calc(100% + 8px); display: flex; gap: 6px; opacity: 0; transform: translateY(6px); pointer-events: none; transition: opacity .35s ease, transform .35s ease; }
+.fx-hud:hover .fx-strip, .fx-hud:focus-within .fx-strip, .fx-hud.fx-peek .fx-strip { opacity: 1; transform: none; }
+.fx-strip span { display: flex; flex-direction: column; gap: 1px; padding: 6px 10px 6px 9px; min-width: 74px; border-radius: 12px; background: rgba(9, 32, 20, .78); border: 1px solid rgba(255, 255, 255, .16); color: #fff; font-size: .62rem; font-weight: 800; letter-spacing: .2px; }
+.fx-strip b { font-size: .9rem; margin-right: 5px; float: left; line-height: 1.5; }
+.fx-strip small { color: var(--gold); font-size: .52rem; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; white-space: nowrap; }
+@media (max-width: 1100px) { .fx-strip { display: none !important; } }
+
+/* readable page headings on top of the scene */
+body.fx-on .page-heading { padding: 22px 28px; border-radius: 20px; background: linear-gradient(135deg, rgba(9, 32, 20, .6), rgba(9, 32, 20, .32)); border: 1px solid rgba(255, 255, 255, .16); box-shadow: 0 18px 40px rgba(0, 0, 0, .18); }
+body.fx-on .page-heading h1 { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, .35); }
+body.fx-on .page-heading .eyebrow { color: var(--gold); }
+body.fx-on .page-heading > div > p:last-child { color: rgba(255, 255, 255, .88); }
+body.fx-on .page-heading .step-count { color: #fff; }
+body.fx-on .page-heading .step-count span { color: rgba(255, 255, 255, .6); }
+body.fx-on .map-disclaimer { display: inline-block; padding: 8px 14px; background: rgba(255, 255, 255, .9); border-radius: 10px; }
+body.fx-on .panel { background: rgba(255, 255, 255, .955); }
+body.fx-on .report-nav-bar { background: rgba(247, 249, 245, .94); border-radius: 12px; padding-left: 10px; padding-right: 10px; border: 1px solid var(--line); }
+body.fx-on .text-button { color: var(--forest); }
+
+@media (max-width: 900px) {
+  body.fx-on .page-heading { padding: 18px 18px; }
+  .fx-hud { left: 10px; bottom: 10px; }
+  .fx-live { display: none; }
+}
+
+/* ---------- real field (satellite) view ---------- */
+.fieldview.has-map { position: relative; overflow: hidden; display: block; padding: 0; border-radius: 14px; background: #10281b; border: 1px solid #284f39; font-size: 0; }
+.fieldview.has-map::before { content: ""; position: absolute; inset: 0; z-index: 0; background: linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px) 0 0 / 22px 22px, linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px) 0 0 / 22px 22px, radial-gradient(circle at 50% 50%, #1d4a31, #0c2217); }
+.fv-tiles { position: absolute; inset: 0; z-index: 1; overflow: hidden; }
+.fv-tiles img { position: absolute; display: block; max-width: none; opacity: 0; transition: opacity .5s ease; user-select: none; -webkit-user-drag: none; }
+.fv-tiles img.on { opacity: 1; }
+.fv-over { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.fv-over svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .4)); }
+.fieldview.has-map::after { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit; box-shadow: inset 0 0 40px rgba(6, 20, 12, .45); }
+.fv-badge { position: absolute; left: 9px; top: 9px; z-index: 4; padding: 5px 9px; border-radius: 99px; background: rgba(9, 32, 20, .78); color: #fff; font: 800 .54rem "DM Sans", sans-serif; letter-spacing: .9px; }
+.fv-badge::first-letter { color: #ff6b5a; }
+.fv-north { position: absolute; right: 9px; top: 9px; z-index: 4; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: rgba(9, 32, 20, .78); color: #fff; font: 800 .5rem "Manrope", sans-serif; line-height: 1; text-align: center; }
+.fv-north i { display: block; font-style: normal; color: var(--gold); font-size: .5rem; margin-bottom: -1px; }
+.fv-scale { position: absolute; left: 10px; bottom: 9px; z-index: 4; display: flex; flex-direction: column; gap: 3px; color: #fff; font: 800 .58rem "DM Sans", sans-serif; text-shadow: 0 1px 4px rgba(0, 0, 0, .9); }
+.fv-scale i { display: block; height: 5px; border: 2px solid #fff; border-top: 0; box-shadow: 0 1px 4px rgba(0, 0, 0, .6); }
+.fieldview.fv-offline .fv-badge { background: rgba(110, 81, 11, .88); }
+
+/* Farm profile: the old emoji tile becomes the real field */
+.profile-art.has-map { height: 210px; margin-bottom: 22px; }
+
+/* Land report: the old sketch box becomes the real field */
+.polygon-preview-box:has(.fieldview) { padding: 0; background: transparent; border: 0; min-height: 0; align-items: stretch; }
+.polygon-preview-box .fieldview { width: 100%; height: 250px; border-radius: 14px; }
+.polygon-preview-box .fieldview:not(.has-map) { height: auto; min-height: 185px; background: #10281b; padding: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #284f39; }
+.polygon-preview-box:has(.fieldview) > .polygon-caption { margin-top: 8px; color: var(--muted); }
+
+@media print {
+  #fx-scene, .fx-hud { display: none !important; }
+  body.fx-on, body.fx-on .page-heading { background: #fff !important; color: #111 !important; box-shadow: none !important; border: 0 !important; padding: 0 !important; }
+  body.fx-on .page-heading h1, body.fx-on .page-heading .step-count, body.fx-on .page-heading .step-count span, body.fx-on .page-heading > div > p:last-child { color: #111 !important; text-shadow: none !important; }
+  body.fx-on .page-heading .eyebrow { color: #2d6a3e !important; }
+  .fieldview.has-map { border: 1px solid #ccc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+@media (prefers-reduced-motion: reduce) { .fx-live::before { animation: none; } #fx-scene { transition: none; } }
+
+/* ==========================================================================
+   KRISHINITI — ELEVATED FARM PROFILE & CLIMATE SHIFTING CANVAS
+   ========================================================================== */
+
+/* Satellite Telemetry Status Bar */
+.satellite-probe-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: linear-gradient(135deg, #0f2e1d 0%, #173d2a 100%);
+  border: 1px solid #28543b;
+  border-radius: 12px;
+  padding: 10px 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.probe-status-pulse {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 10px #10b981;
+  animation: probePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes probePulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.probe-status-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ecfdf5;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.probe-coords-badge {
+  font-size: 0.72rem;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.15);
+  color: #a7f3d0;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Elevated Profile Section Cards */
+.profile-section-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-section-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.section-badge-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.section-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #166534;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.header-text-group {
+  flex: 1;
+}
+
+.title-with-pill {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+
+.section-card-title {
+  font-family: "Manrope", sans-serif;
+  font-size: 1.12rem;
+  color: #173d2a;
+  margin: 0;
+}
+
+.section-card-desc {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.auto-detected-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  border-radius: 20px;
+  padding: 2px 10px;
+  letter-spacing: 0.02em;
+}
+
+/* Detected Summary Box */
+.detected-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+
+.detected-primary-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.detected-icon-badge {
+  font-size: 1.5rem;
+  line-height: 1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px;
+  flex-shrink: 0;
+}
+
+.detected-title {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.98rem;
+  color: #0f172a;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.detected-desc {
+  font-size: 0.76rem;
+  color: #475569;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.detected-metrics-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.meta-chip.warn {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+/* 1-Tap Override Controls */
+.override-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.choice-toggle-btn {
+  background: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.choice-toggle-btn:hover {
+  background: #f1f5f9;
+}
+
+.choice-toggle-btn.active {
+  background: #166534;
+  color: #ffffff;
+  border-color: #166534;
+  box-shadow: 0 2px 6px rgba(22, 101, 52, 0.2);
+}
+
+.custom-override-panel {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed #cbd5e1;
+}
+
+/* Water Choice Cards Grid */
+.water-cards-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.water-choice-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.water-choice-card:hover {
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+}
+
+.water-choice-card.active {
+  border-color: #0284c7;
+  background: #f0f9ff;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+
+.water-choice-icon {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+
+.water-choice-title {
+  font-size: 0.8rem;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.water-choice-desc {
+  font-size: 0.68rem;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Mandis Display Grid */
+.mandis-display-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.mandi-item-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.mandi-item-card.primary-mandi {
+  border-left: 3px solid #166534;
+}
+
+.mandi-header {
+  margin-bottom: 6px;
+}
+
+.mandi-tag {
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: #64748b;
+  display: block;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.mandi-name {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.92rem;
+  color: #0f172a;
+}
+
+.mandi-meta-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.mandi-crops-hint {
+  font-size: 0.7rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.market-channel-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.channel-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  color: #334155;
+  cursor: pointer;
+}
+
+/* Multi-Objective Goal Chips */
+.multi-goal-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.goal-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 24px;
+  border: 1.5px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.goal-chip:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.goal-chip.active {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
+}
+
+.goal-chip .goal-check {
+  font-size: 0.72rem;
+  font-weight: 900;
+  display: inline-block;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: all 0.15s ease;
+}
+
+.goal-chip.active .goal-check {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dynamic-strategy-box {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.strategy-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.strategy-text {
+  font-size: 0.76rem;
+  color: #78350f;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Right Aside: Farm Shift Readiness Gauge */
+.elevated-profile-card {
+  padding: 24px 22px !important;
+}
+
+.readiness-gauge-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 14px 0 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.readiness-score-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(16, 185, 129, 0.25);
+}
+
+.readiness-score-circle strong {
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.readiness-score-circle span {
+  font-size: 0.55rem;
+  opacity: 0.85;
+}
+
+.readiness-verdict-area {
+  flex: 1;
+}
+
+.readiness-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 3px;
+}
+
+.readiness-hint {
+  font-size: 0.72rem;
+  color: #475569;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.summary-divider {
+  height: 1px;
+  background: #e2e8f0;
+  margin: 14px 0;
+}
+
+.shift-stat-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.button-action-highlight {
+  background: #166534 !important;
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 14px rgba(22, 101, 52, 0.25) !important;
+  transition: all 0.2s ease !important;
+}
+
+.button-action-highlight:hover {
+  background: #14532d !important;
+  transform: translateY(-1px) !important;
+}
+
+/* =========================================================
+   CLIMATE SHIFT COMPARISON CARD (NASA SPACE APPS 2026)
+   Traditional Baseline vs Recommended Climate-Shifted Route
+   ========================================================= */
+
+.climate-shift-comparison-card {
+  background: #ffffff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.shift-comparison-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 16px;
+}
+
+.shift-badge-highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+.shift-comparison-title {
+  margin: 4px 0 2px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.shift-comparison-sub {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+.shift-goals-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.shift-goals-summary .goals-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.shift-goals-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.shift-goal-pill {
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+
+.shift-comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+.shift-col {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 18px;
+  transition: all 0.2s ease;
+}
+
+.shift-col-baseline {
+  border-left: 4px solid #64748b;
+}
+
+.shift-col-recommended {
+  border-left: 4px solid #16a34a;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+  border-color: #bbf7d0;
+  box-shadow: 0 4px 14px rgba(22, 163, 74, 0.08);
+}
+
+.shift-col-header {
+  margin-bottom: 14px;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.col-type-tag {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 4px;
+}
+
+.col-type-tag.highlight {
+  color: #166534;
+}
+
+.shift-col-name {
+  margin: 2px 0 2px 0;
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.shift-col-sub {
+  display: block;
+  font-size: 0.78rem;
+  color: #475569;
+}
+
+.shift-stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shift-stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.84rem;
+  padding: 4px 0;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.shift-stat-item:last-child {
+  border-bottom: none;
+}
+
+.shift-stat-label {
+  color: #475569;
+}
+
+.shift-stat-val {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.shift-stat-val.pos {
+  color: #166534;
+}
+
+.shift-stat-val.warn {
+  color: #ea580c;
+}
+
+.shift-col-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px;
+}
+
+.shift-arrow-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #16a34a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 900;
+  box-shadow: 0 4px 10px rgba(22, 163, 74, 0.28);
+}
+
+.shift-delta-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+}
+
+.delta-badge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.delta-pos {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.delta-water {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.delta-profit {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.shift-takeaway-footer {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #334155;
+  background: #f8fafc;
+  padding: 12px 14px;
+  border-radius: 8px;
+}
+
+.takeaway-icon {
+  font-size: 1.15rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.takeaway-text {
+  margin: 0;
+}
+
+@media (max-width: 820px) {
+  .shift-comparison-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .shift-col-arrow {
+    flex-direction: row;
+    justify-content: center;
+    padding: 6px 0;
+  }
+  .shift-arrow-circle {
+    transform: rotate(90deg);
+  }
+  .shift-delta-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .shift-goals-summary {
+    align-items: flex-start;
+  }
+  .shift-goals-pills-wrap {
+    justify-content: flex-start;
+  }
+}
+
+/* ==========================================================================
+   KRISHINITI â€” FARM PROFILE & INTELLIGENCE REDESIGN STYLES (PHASE 1)
+   Clean, modern, professional agricultural intelligence layout.
+   ========================================================================== */
+
+/* Field Summary Compact Banner */
+.field-summary-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.summary-pill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.summary-pill-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.summary-pill-val {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.status-indicator-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.status-indicator-badge.pos {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #bbf7d0;
+}
+
+.status-indicator-badge.live {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+/* Three-Stage Progress Navigation Bar */
+.farm-profile-progress-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.progress-nav-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  color: #64748b;
+}
+
+.progress-nav-step:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.progress-nav-step.active {
+  background: #f0fdf4;
+  color: #166534;
+  font-weight: 800;
+}
+
+.progress-nav-step .step-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 0.76rem;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.progress-nav-step.active .step-circle {
+  background: #166534;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(22, 101, 52, 0.3);
+}
+
+.progress-nav-step .step-title-text {
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.progress-nav-line {
+  flex: 1;
+  max-width: 60px;
+  height: 2px;
+  background: #e2e8f0;
+  border-radius: 2px;
+}
+
+/* Section Step Divider */
+.section-step-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid #e2e8f0;
+}
+
+.section-step-divider .divider-tag {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: #173d2a;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.section-step-divider h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+/* Soil Texture Horizontal Bars */
+.soil-texture-bars-container {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.soil-bar-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.86rem;
+}
+
+.soil-stacked-bar {
+  display: flex;
+  height: 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #ffffff;
+  text-align: center;
+  line-height: 24px;
+}
+
+.soil-stacked-bar .bar-segment.sand {
+  background: #d97706;
+}
+
+.soil-stacked-bar .bar-segment.silt {
+  background: #0284c7;
+}
+
+.soil-stacked-bar .bar-segment.clay {
+  background: #854d0e;
+}
+
+.soil-fractions-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 0.78rem;
+  color: #475569;
+}
+
+.soil-fractions-legend .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.soil-fractions-legend .dot.sand { background: #d97706; }
+.soil-fractions-legend .dot.silt { background: #0284c7; }
+.soil-fractions-legend .dot.clay { background: #854d0e; }
+
+/* Water & Irrigation Choice Cards */
+.water-cards-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.water-choice-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.water-choice-card:hover {
+  border-color: #94a3b8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+
+.water-choice-card.active {
+  border-color: #16a34a;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 1px #16a34a;
+}
+
+.water-choice-icon {
+  font-size: 1.4rem;
+  margin-bottom: 2px;
+}
+
+.water-choice-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.water-choice-card.active .water-choice-title {
+  color: #166534;
+}
+
+.water-choice-desc {
+  font-size: 0.74rem;
+  color: #64748b;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Multi-Goal Selection Chips & Strategy */
+.multi-goal-chips-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.goal-chip {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  transition: all 0.2s ease;
+}
+
+.goal-chip:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+}
+
+.goal-chip.active {
+  border-color: #16a34a;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 1px #16a34a;
+}
+
+.goal-chip .goal-check {
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #16a34a;
+  margin-bottom: 2px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.goal-chip.active .goal-check {
+  opacity: 1;
+}
+
+.goal-chip .goal-icon {
+  font-size: 1.25rem;
+  margin-bottom: 2px;
+}
+
+.goal-chip .goal-text {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.goal-chip.active .goal-text {
+  color: #166534;
+}
+
+.goal-chip .goal-subtext {
+  font-size: 0.72rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+/* Dynamic Strategy Box */
+.dynamic-strategy-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+
+.strategy-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.strategy-text {
+  font-size: 0.85rem;
+  color: #14532d;
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Responsive Rules */
+@media (max-width: 768px) {
+  .farm-profile-progress-nav {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .progress-nav-line {
+    display: none;
+  }
+  .field-summary-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ==========================================================================
+   KRISHINITI SOIL DIAGNOSTIC: REPORT UPLOAD & NEARBY TESTING LAB FINDER
+   ========================================================================== */
+
+.soil-test-report-section {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.test-report-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.test-report-card {
+  position: relative;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 14px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  user-select: none;
+}
+
+.test-report-card:hover {
+  border-color: #94a3b8;
+  background: #f8fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.test-report-card.active {
+  border-color: #16a34a;
+  background: #f0fdf4;
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.12);
+}
+
+.test-report-card.active .choice-title {
+  color: #166534;
+}
+
+.card-radio-indicator {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #cbd5e1;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.test-report-card.active .card-radio-indicator {
+  border-color: #16a34a;
+  background: #16a34a;
+  box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+.choice-icon-wrap {
+  font-size: 1.7rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.choice-text-wrap {
+  padding-right: 20px;
+}
+
+.choice-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: block;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.choice-desc {
+  font-size: 0.74rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Drag & Drop Upload Zone */
+.upload-dropzone {
+  position: relative;
+  border: 2px dashed #86efac;
+  border-radius: 12px;
+  background: #f9fdfa;
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+
+.upload-dropzone.drag-active {
+  border-color: #16a34a;
+  background: #ecfdf5;
+  transform: scale(1.01);
+  box-shadow: 0 8px 24px rgba(22, 163, 74, 0.15);
+}
+
+.btn-browse-file {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #166534;
+  color: #ffffff;
+  border: none;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  box-shadow: 0 2px 6px rgba(22, 101, 52, 0.2);
+}
+
+.btn-browse-file:hover {
+  background: #15803d;
+}
+
+.dropzone-file-selected {
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.btn-file-action {
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-file-action.replace {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.btn-file-action.replace:hover {
+  background: #e2e8f0;
+}
+
+.btn-file-action.remove {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.btn-file-action.remove:hover {
+  background: #fee2e2;
+}
+
+/* Action Buttons */
+.btn-analyze-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-analyze-report:hover {
+  background: linear-gradient(135deg, #15803d, #166534);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(22, 163, 74, 0.32);
+}
+
+.btn-analyze-report.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.btn-confirm-extract {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #166534;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(22, 101, 52, 0.2);
+  transition: background 0.15s ease;
+}
+
+.btn-confirm-extract:hover {
+  background: #15803d;
+}
+
+.btn-cancel-extract {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-cancel-extract:hover {
+  background: #f1f5f9;
+}
+
+/* Extraction Table */
+.extraction-table th {
+  font-weight: 700;
+}
+
+.extraction-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.extraction-table tr:hover {
+  background: #f8fafc;
+}
+
+.extract-val-input {
+  width: 100%;
+  max-width: 140px;
+  padding: 4px 8px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+.extract-val-input:focus {
+  border-color: #16a34a;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.15);
+}
+
+.extract-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 2px 8px;
+}
+
+.extract-status-pill.extracted {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.extract-status-pill.estimated {
+  background: #fefce8;
+  color: #854d0e;
+  border: 1px solid #fef08a;
+}
+
+/* Nearby Laboratories Cards */
+.lab-result-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.lab-result-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.lab-result-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lab-name-title {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.lab-category-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.lab-category-badge.university {
+  background: #ede9fe;
+  color: #6d28d9;
+  border: 1px solid #ddd6fe;
+}
+
+.lab-category-badge.kvk {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.lab-category-badge.government {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.lab-dist-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #0f172a;
+  border-radius: 6px;
+  padding: 3px 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.lab-address-line {
+  font-size: 0.78rem;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lab-phone-line {
+  font-size: 0.76rem;
+  color: #0369a1;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lab-services-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.lab-service-tag {
+  font-size: 0.7rem;
+  background: #f8fafc;
+  color: #334155;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  padding: 2px 7px;
+}
+
+.lab-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 8px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lab-hours-text {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.btn-directions-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #15803d;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  padding: 4px 10px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.btn-directions-link:hover {
+  background: #dcfce7;
+  color: #166534;
+}
+
+@media (max-width: 640px) {
+  .test-report-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

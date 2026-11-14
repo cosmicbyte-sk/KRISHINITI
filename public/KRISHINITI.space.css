@@ -1,0 +1,357 @@
+/* KRISHINITI.space.css — additive layer: Earth intro, dot-grid singularity, Overview board.
+   Nothing here overrides an existing rule except via new .kx-* / .kb-* classes. */
+:root{--ac:#e0562b;--ac2:#f6b9a0;--ac3:#f08a63}
+#welcome-screen{position:relative}
+#welcome-screen .hero,#welcome-screen .section-intro,#welcome-screen .feature-grid,.kb{position:relative;z-index:1}
+
+/* ---------- Earth intro ---------- */
+#kx{position:fixed;inset:0;z-index:9999;overflow:hidden;color:#e8f0f7;font-family:"DM Sans",sans-serif;background:radial-gradient(70% 55% at 50% 55%,#0d2a55 0,#04091a 60%,#02040a 100%)}
+#kx canvas{position:absolute;inset:0;width:100%;height:100%}
+#kx-gl{touch-action:none;cursor:grab;z-index:1}
+#kx-grid{pointer-events:none;z-index:6}
+.kx-title{position:absolute;top:3.2vh;left:0;right:0;text-align:center;z-index:2;pointer-events:none;animation:kxUp 1.1s .35s cubic-bezier(.2,.8,.2,1) backwards}
+.kx-title b{display:block;font-family:Manrope,sans-serif;font-weight:800;font-size:min(7.6vw,10.2vh);line-height:.95;letter-spacing:-.045em;background:linear-gradient(180deg,#f7faf5,#aebdac);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kx-title em{font-style:normal;background:linear-gradient(180deg,#d2f7c6,#4fb36a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.kx-title p{margin-top:.8vh;font-size:max(.8rem,min(1.5vw,2vh));letter-spacing:.05em;opacity:.78}
+.kx-farm{position:absolute;z-index:3;overflow:visible;pointer-events:none;transform-origin:45% 89%;animation:kxPop .9s 1.6s cubic-bezier(.3,1.6,.5,1) backwards}
+.kx-sat{position:absolute;left:0;top:0;width:34px;height:20px;margin:-10px 0 0 -17px;z-index:2;opacity:0;pointer-events:none;transition:opacity .5s}
+.kx-bot{position:absolute;left:0;right:0;bottom:5.5vh;display:flex;flex-direction:column;align-items:center;gap:14px;z-index:4;animation:kxUp 1s 2s cubic-bezier(.2,.8,.2,1) backwards}
+.kx-bot small{font-size:.76rem;opacity:.6;letter-spacing:.04em}
+.kx-enter{position:relative;display:flex;align-items:center;gap:14px;border:0;border-radius:99px;padding:15px 12px 15px 32px;background:linear-gradient(135deg,#59b36b,#2f8a57);color:#fff;font:800 1.02rem Manrope,sans-serif;cursor:pointer;box-shadow:0 12px 40px rgba(60,170,100,.45),inset 0 1px 0 rgba(255,255,255,.35);transition:transform .25s,box-shadow .25s}
+.kx-enter:hover{box-shadow:0 16px 54px rgba(90,200,120,.6)}
+.kx-enter i{font-style:normal;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#fff;color:#1f6a40;transition:transform .3s}
+.kx-enter:hover i{transform:translateX(4px) rotate(-45deg)}
+.kx-enter:after{content:"";position:absolute;inset:-6px;border-radius:99px;border:2px solid rgba(110,210,140,.6);pointer-events:none;animation:kxRing 2.4s ease-out infinite}
+.kx-enter:focus-visible{outline:2px solid #fff;outline-offset:6px}
+/* farmer: hoe swing, body bob, soil puff — one 2.2 s beat */
+.kx-farm .hoe{transform-origin:96px 114px;animation:kxHoe 2.2s infinite}
+.kx-farm .bob{animation:kxBob 2.2s infinite}
+.kx-farm .puff{transform-box:fill-box;transform-origin:center;opacity:0;animation:kxPuff 2.2s infinite}
+@keyframes kxHoe{0%{transform:rotate(0);animation-timing-function:cubic-bezier(.3,0,.3,1)}46%{transform:rotate(-100deg)}56%{transform:rotate(-100deg);animation-timing-function:cubic-bezier(.7,0,1,.6)}68%{transform:rotate(0)}100%{transform:rotate(0)}}
+@keyframes kxBob{0%{transform:none}46%,56%{transform:translateY(-3px)}68%{transform:translateY(2px)}78%,100%{transform:none}}
+@keyframes kxPuff{0%,66%{opacity:0;transform:translate(0,0) scale(.4)}68%{opacity:.9;transform:translate(0,0) scale(1)}90%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.6)}100%{opacity:0}}
+@keyframes kxUp{from{opacity:0;transform:translateY(-26px)}}
+.kx-bot{--up:1}@keyframes kxRing{from{opacity:.9;transform:scale(.96)}to{opacity:0;transform:scale(1.18,1.5)}}
+@keyframes kxPop{from{opacity:0;transform:scale(.3) translateY(30px)}}
+/* enter: title, farmer and button leave while the camera dives into the Earth; JS then opens an iris onto the site */
+#kx.go .kx-title{opacity:0;transform:translateY(-40px);transition:.8s ease}
+#kx.go .kx-farm{opacity:0;transform:scale(.5) translateY(30px);transition:.7s ease}
+#kx.go .kx-bot{opacity:0;transform:translateY(30px);transition:.6s ease}
+#kx.go .kx-sat{display:none}
+@keyframes kxRise{from{transform:scale(1.12);opacity:0}to{transform:none;opacity:1}}
+body.kx-open .language-screen{animation:kxRise 1.2s cubic-bezier(.2,.8,.2,1) both}
+
+/* ---------- Overview board ---------- */
+.kb{margin:34px 0 8px}
+.kb-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.kb-head h2{font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.03em}
+.kb-head p{color:var(--muted);font-size:.88rem;margin-top:4px}
+.kb-src{font-size:.74rem;font-weight:700;padding:6px 12px;border-radius:99px;background:var(--amber-bg);border:1px solid var(--amber-border);color:var(--amber-ink)}
+.kb-src.live{background:var(--sage);border-color:#c9dcc6;color:var(--forest)}
+.kb-g{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:minmax(188px,auto);gap:16px}
+.w12{grid-column:3/5}
+.kb-w{position:relative;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s;font:inherit;text-align:left;color:inherit}
+.kb-w:hover{transform:translateY(-4px);box-shadow:0 20px 44px rgba(23,61,42,.13)}
+.kb:not(.in) .kb-w{opacity:0}
+.kb.in .kb-w{animation:kbIn .65s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*55ms)}
+.kb.done .kb-w{animation:none}
+@keyframes kbIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes kbSpin{to{transform:rotate(360deg)}}
+@keyframes kbDraw{to{stroke-dashoffset:0}}
+.kb-w h3{font:700 .95rem Manrope,sans-serif}
+.kb-t{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.kb-t select{border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.74rem;background:#fff}
+.kb-ic{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;border:0;background:#f0f1ed;font-size:.8rem}
+.kb-ic.o{background:var(--ac);color:#fff}.kb-ic.dk{background:#0f2418;color:#fff}
+.kb-chip{font-size:.72rem;font-weight:700;padding:4px 10px;border-radius:99px;background:#eaf3e6;color:var(--forest)}
+.kb-chip.o{background:#fde7de;color:#b6441f}
+.kb-b{border:0;border-radius:99px;padding:11px 14px;font-weight:700;font-size:.82rem}
+.kb-b.g{background:#ecedea}.kb-b.o{background:var(--ac);color:#fff}.kb-b.wide{width:100%;margin-top:auto}
+.kb-bt{display:flex;gap:8px;margin-top:auto}.kb-bt .kb-b{flex:1}
+.kb-w:focus-visible,.kb-b:focus-visible,.kb-t select:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+
+/* profile ring */
+.kb-ring{position:relative;width:150px;height:150px;margin:2px auto 8px}
+.kb-ring:before,.kb-ring:after{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid #e3e6df}
+.kb-ring:after{inset:26px}
+.kb-av{position:absolute;inset:50px;border-radius:50%;display:grid;place-items:center;font-size:1.6rem;background:linear-gradient(145deg,#9db9d6,#4d6f95);box-shadow:0 8px 20px rgba(60,90,130,.3)}
+.orb{position:absolute;inset:0;animation:kbSpin 16s linear infinite}
+.orb i{position:absolute;top:-13px;left:50%;margin-left:-13px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:.8rem;background:#111;color:#fff;animation:kbSpin 16s linear infinite reverse}
+.orb.o2{inset:0}.orb.o2,.orb.o2 i{animation-delay:-5.3s}.orb.o2 i{background:var(--ac)}
+.orb.o3{inset:26px}.orb.o3,.orb.o3 i{animation-delay:-10.6s}.orb.o3 i{background:#3b7ea1}
+.kb-sub{text-align:center;color:var(--muted);font-size:.8rem;margin-top:auto}
+
+/* lollipop */
+.kb-lp{display:flex;justify-content:space-between;align-items:flex-end;flex:1;padding-top:30px}
+.lp{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;flex:1}
+.lp .st{position:relative;width:16px;height:110px}
+.lp .st i{position:absolute;left:7px;bottom:0;width:2px;height:0;background:#cfd2cb;transition:height .9s cubic-bezier(.2,.8,.2,1);transition-delay:calc(var(--j)*70ms)}
+.kb.in .lp .st i{height:calc(var(--h)*1%)}
+.lp .st i:after{content:"";position:absolute;left:-4px;top:-5px;width:10px;height:10px;border-radius:50%;background:#14201a;transition:.2s}
+.lp .st b{position:absolute;left:50%;bottom:calc(var(--h)*1% + 14px);transform:translate(-50%,6px);opacity:0;transition:.2s;white-space:nowrap;font-size:.7rem;color:#fff;background:var(--ac);padding:3px 9px;border-radius:99px;pointer-events:none}
+.lp.on .st i{background:var(--ac)}.lp.on .st i:after{background:var(--ac);transform:scale(1.25)}
+.lp.on .st b{opacity:1;transform:translate(-50%,0)}
+.lp small{font-size:.7rem;color:var(--muted)}
+
+/* shift a crop */
+.kb-row{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:99px;padding:9px 14px;margin-bottom:8px;font-size:.84rem;font-weight:600;transition:.25s}
+.kb-row b{margin-left:auto;font-weight:700}
+.kb-row .dot{width:16px;height:16px;border-radius:50%;background:#14201a}.kb-row .dot.b{background:#6f93b8}
+.kb-row.pick{border-color:var(--ac);background:#fff4ef}
+.kb-res{font-size:.76rem;color:var(--muted);line-height:1.5;min-height:2.4em;margin:2px 0 10px}
+
+/* data sources */
+.kb-tm{display:flex;align-items:center;gap:10px;min-height:44px;transition:opacity .3s}.kb-tm.f{opacity:0}
+.kb-tm i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:.72rem;font-weight:800;background:linear-gradient(145deg,#9db9d6,#4d6f95);color:#fff}
+.kb-tm b{display:block;font-size:.86rem}.kb-tm small{color:var(--muted);font-size:.72rem}
+.kb-card{margin:12px 0;padding:11px 12px;border-radius:10px;background:#f0f1ed;font-size:.76rem;display:flex;gap:10px;align-items:center}
+.kb-card em{font-style:normal;background:#111;color:#fff;border-radius:4px;padding:2px 6px;font-weight:800;font-size:.62rem}
+
+/* annual rain */
+.kb-big{font:800 1.9rem Manrope,sans-serif;letter-spacing:-.03em;margin:6px 0 14px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.kb-big small{font:500 .8rem "DM Sans",sans-serif;color:var(--muted)}.kb-big em{font:600 .9rem "DM Sans",sans-serif;font-style:normal;color:var(--muted)}
+.kb-bar{height:7px;border-radius:9px;background:var(--ac2);overflow:hidden}
+.kb-bar i{display:block;height:100%;width:0;background:var(--ac);border-radius:9px;transition:width 1.2s cubic-bezier(.2,.8,.2,1) .4s}
+.kb.in .kb-bar i{width:var(--p)}
+.kb-ft{display:flex;justify-content:space-between;margin-top:auto;padding-top:12px;font-size:.76rem;color:var(--muted)}.kb-ft b{color:var(--ink)}
+
+/* CTA tiles */
+.kb-st{display:flex;flex-direction:column;gap:16px}
+.kb-st .kb-w{flex:1;justify-content:space-between;min-height:86px;border:0;cursor:pointer}
+.kb-cta{background:var(--ac);color:#fff;box-shadow:0 14px 30px rgba(224,86,43,.3)}
+.kb-dk{background:#0f2418;color:#fff}
+.kb-st i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.18)}
+.kb-st b{font:700 1rem Manrope,sans-serif}
+
+/* sparklines + values */
+.kb-sp{flex:1;min-height:70px;display:flex}.kb-sp svg{width:100%;height:100%}
+.kb-sp polyline{fill:none;stroke:#a5a8a0;stroke-width:1.6;stroke-linejoin:round}.kb-sp.o polyline{stroke:var(--ac)}
+.kb.in .kb-sp polyline{stroke-dasharray:1;stroke-dashoffset:1;animation:kbDraw 1.6s .5s ease forwards}
+.kb-v{font:800 1.45rem Manrope,sans-serif;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.kb-v u{text-decoration:none;font-size:.7rem;color:#2f8a57}.kb-v small{font:500 .74rem "DM Sans",sans-serif;color:var(--muted)}
+
+/* rain bank */
+.kb-date{align-self:flex-start;background:#111;color:#fff;border-radius:99px;padding:3px 10px;font-size:.72rem;font-weight:700;margin-bottom:6px}
+.kb-cv{position:relative;flex:1;min-height:70px;touch-action:none;cursor:crosshair}.kb-cv svg{width:100%;height:100%}
+.kb-cv path{fill:none;stroke:var(--ac);stroke-width:2;stroke-linecap:round}
+.kb-cv u{position:absolute;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:#111;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:left .12s,top .12s}
+
+/* crop water demand */
+.kb-av2{display:flex;margin:2px 0 14px}
+.kb-av2 em{font-style:normal;width:26px;height:26px;border-radius:50%;margin-left:-6px;border:2px solid #fff;display:grid;place-items:center;font-size:.58rem;font-weight:800;color:#fff}
+.kb-av2 em:first-child{margin-left:0}
+.kmx{display:flex;justify-content:space-between;margin-top:auto;padding:0 4px}
+.kc{display:flex;flex-direction:column;gap:9px;cursor:pointer}
+.kc b{width:18px;height:18px;border-radius:50%;background:#eceee9;transition:.2s}
+.kc b.on{background:var(--c,var(--ac))}.kc b.on:nth-child(1){opacity:.4}.kc b.on:nth-child(2){opacity:.7}
+.kc:hover b.on{transform:scale(1.15)}
+
+/* rain by season */
+.kb-ms{display:flex;gap:28px;margin:6px 0 14px;flex-wrap:wrap}.kb-ms div{cursor:pointer}
+.kb-ms small{display:block;color:var(--muted);font-size:.72rem}.kb-ms b{font:700 1.05rem Manrope,sans-serif}
+.kb-mx{display:flex;gap:10px;height:64px}
+.kb-mx i{border-radius:4px;background:radial-gradient(circle,#c4c8c0 1.1px,transparent 1.6px) 0 0/6px 6px;transition:.3s}
+.kb-mx i.a{background-image:radial-gradient(circle,var(--ac) 1.3px,transparent 1.8px)}
+.kb-ft2{display:flex;align-items:center;gap:10px;margin-top:auto;padding-top:14px;font-size:.82rem;flex-wrap:wrap}.kb-ft2 .kb-b{margin-left:auto}
+
+@media(max-width:1000px){.kb-g{grid-template-columns:repeat(2,minmax(0,1fr))}.w12{grid-column:1/-1}}
+@media(max-width:760px){.kx-bot small{display:none}}
+@media(max-width:560px){.kb-g{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.orb,.orb i{animation:none}.kb.in .kb-w,.kb.in .kb-sp polyline{animation:none}.kb:not(.in) .kb-w{opacity:1}#kx{transition:none}}
+@media(prefers-reduced-motion:reduce){.kx-title,.kx-farm,.kx-bot,.kx-farm .hoe,.kx-farm .bob,.kx-farm .puff,.kx-enter:after,body.kx-open .language-screen{animation:none}}
+
+/* ================= LIFE: whole-site fluid layer, 3D steps, farm mascot, crop ring, board tilt ================= */
+/* fluid layer + progress + soft reveal (uses your original greens, golds and cream) */
+#kf{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;--px:0;--py:0}
+#kf b{position:absolute;width:46vmax;height:46vmax;border-radius:50%;filter:blur(80px);opacity:.5;translate:calc(var(--px)*36px) calc(var(--py)*36px)}
+#kf b:nth-child(1){left:-12vmax;top:-10vmax;background:#cfe3c8;animation:kvDrift 26s ease-in-out infinite alternate}
+#kf b:nth-child(2){right:-14vmax;top:18vh;background:#f6e6a8;animation:kvDrift 32s ease-in-out -8s infinite alternate-reverse}
+#kf b:nth-child(3){left:20vw;bottom:-22vmax;background:#bcd8c4;animation:kvDrift 29s ease-in-out -14s infinite alternate}
+#kf i{position:absolute;top:-30px;width:20px;height:20px;opacity:.5;animation:kvFall linear infinite;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20C4 9 11 3 21 3c0 10-6 17-17 17Z' fill='%234d8b58'/%3E%3C/svg%3E") center/contain no-repeat}
+@keyframes kvDrift{to{transform:translate(8vw,6vh) scale(1.18) rotate(30deg)}}
+@keyframes kvFall{0%{transform:translate(0,-30px) rotate(0)}50%{transform:translate(40px,55vh) rotate(180deg)}100%{transform:translate(-20px,112vh) rotate(360deg)}}
+#kp{position:fixed;left:0;right:0;top:0;height:3px;z-index:60;pointer-events:none;background:linear-gradient(90deg,var(--green),var(--gold));transform-origin:0 50%;transform:scaleX(var(--p,0))}
+.kv-on .kv-r:not(.kv-v){opacity:0}
+.kv-v{animation:kvIn .8s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes kvIn{from{opacity:0;translate:0 24px}}
+
+/* step story */
+.kv{margin:64px 0 10px;position:relative;z-index:1}
+.kv-head,.kv-steps,.kv-ringwrap{margin-left:clamp(0px,27vw,400px)}
+.kv-head h2{font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.03em}.kv-head p{color:var(--muted);font-size:.88rem;margin-top:6px}
+.kv-steps{display:flex;flex-direction:column;gap:26px;margin-top:26px;perspective:1100px}
+.kv-s{display:grid;grid-template-columns:170px 1fr;gap:22px;align-items:center;padding:22px;background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);transform:rotateX(var(--rx,0deg)) scale(var(--s,1));opacity:var(--o,1);transition:border-color .4s,box-shadow .4s}
+.kv-s.on{border-color:var(--green);box-shadow:0 22px 50px rgba(23,61,42,.14)}
+.kv-n{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font:800 .8rem Manrope,sans-serif}
+.kv-b h3{margin:10px 0 6px;font-size:1.15rem}.kv-b p{color:var(--muted);font-size:.86rem;line-height:1.7;max-width:46ch}
+.kv-go{margin-top:14px;border:0;border-radius:99px;padding:9px 18px;background:var(--forest);color:#fff;font-weight:700;font-size:.8rem;transition:.25s}
+.kv-go:hover{background:var(--green);transform:translateX(3px)}.kv-go:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+.kv-viz{position:relative;height:132px;border-radius:16px;background:var(--sage);overflow:hidden;perspective:500px}
+.kv-viz i{position:absolute}
+.v0{background:var(--sage) linear-gradient(#cfe0cb 1px,transparent 1px) 0 0/22px 22px,linear-gradient(90deg,#cfe0cb 1px,transparent 1px) 0 0/22px 22px}
+.v0 i{left:50%;top:50%;border-radius:50%}
+.v0 i:nth-child(1){width:14px;height:14px;margin:-7px;background:var(--terracotta)}
+.v0 i:nth-child(n+2){width:14px;height:14px;margin:-7px;border:2px solid var(--terracotta);animation:kvRip 2.4s ease-out infinite}
+.v0 i:nth-child(3){animation-delay:1.2s}
+@keyframes kvRip{from{opacity:.9;transform:scale(1)}to{opacity:0;transform:scale(6)}}
+.v1 i{left:16px;right:16px;height:9px;border-radius:9px;background:#fff}
+.v1 i:nth-child(1){top:30px;--w:70%}.v1 i:nth-child(2){top:62px;--w:45%}.v1 i:nth-child(3){top:94px;--w:85%}
+.v1 i:after{content:"";position:absolute;inset:0;width:var(--w);border-radius:9px;background:var(--green);animation:kvSl 3s ease-in-out infinite alternate}
+@keyframes kvSl{to{width:calc(var(--w) * .5)}}
+.v2 i{left:50%;top:50%;width:92px;height:92px;margin:-46px;border-radius:14px;transform:rotateX(62deg) rotateZ(-35deg) translateZ(var(--z));animation:kvLay 4s ease-in-out infinite alternate}
+.v2 i:nth-child(1){--z:-26px;background:#b98b5a}.v2 i:nth-child(2){--z:0px;background:var(--gold)}.v2 i:nth-child(3){--z:26px;background:var(--blue-accent);opacity:.9}
+@keyframes kvLay{to{transform:rotateX(62deg) rotateZ(-35deg) translateZ(calc(var(--z) * 1.9))}}
+.v3 i:nth-child(1){left:50%;top:50%;width:86px;height:86px;margin:-43px;border-radius:50%;background:conic-gradient(var(--green) 72%,#fff 0);animation:kvSpin 6s linear infinite}
+.v3 i:nth-child(2){left:50%;top:50%;width:54px;height:54px;margin:-27px;border-radius:50%;background:var(--sage)}
+.v3 i:nth-child(3){left:50%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;background:var(--gold);animation:kvPulse 2s ease-in-out infinite}
+@keyframes kvSpin{to{transform:rotate(360deg)}}
+@keyframes kvPulse{50%{transform:scale(1.25)}}
+
+/* revolving crop ring */
+.kv-ringwrap{margin-top:70px}
+.kv-rh h3{font-size:1.4rem;letter-spacing:-.02em}.kv-rh p{color:var(--muted);font-size:.86rem;margin-top:6px}
+.kv-scene{position:relative;height:340px;margin-top:10px;perspective:1100px;cursor:grab;touch-action:pan-y}
+.kv-ring{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-14deg)}
+.kv-p{position:absolute;left:-80px;top:-70px;width:160px;height:140px;padding:16px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);backface-visibility:hidden;transform:rotateY(var(--a)) translateZ(var(--r));display:flex;flex-direction:column;gap:6px;justify-content:center;user-select:none}
+.kv-p em{font-style:normal;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;color:#fff;font:800 .72rem Manrope,sans-serif}
+.kv-p b{font:700 1rem Manrope,sans-serif}.kv-p small{color:var(--muted);font-size:.78rem}
+.kv-core{position:absolute;left:50%;top:50%;translate:-50% -50%;display:grid;place-items:center;width:92px;height:92px;font-size:2.8rem;border-radius:50%;background:radial-gradient(circle,#fff,var(--sage));box-shadow:0 0 0 14px rgba(77,139,88,.12),0 0 0 30px rgba(77,139,88,.07);animation:kvPulse 3.4s ease-in-out infinite}
+
+/* farm-life mascot, left side, behind the content */
+.kv-farmer{position:fixed;left:0;top:50%;width:clamp(240px,26vw,400px);aspect-ratio:300/340;z-index:1;pointer-events:none;opacity:0;translate:-40px -58%;transition:opacity .9s ease,translate .9s ease}
+.kv-farmer.on{opacity:1;translate:0 -58%}
+.kv-fm{width:100%;height:100%;overflow:visible}
+.kv-say{position:absolute;left:4%;top:22%;max-width:64%;padding:9px 13px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);font-size:.78rem;font-weight:600;color:var(--forest);line-height:1.4;transition:opacity .22s,translate .22s}
+.kv-say.f{opacity:0;translate:0 6px}
+.kv-say:after{content:"";position:absolute;left:70px;bottom:-7px;width:12px;height:12px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.kv-fm .t,.kv-fm .seeds,.kv-fm .drops,.kv-fm .satg,.kv-fm .bsk{opacity:0;transition:opacity .5s}
+.c-hoe .t-hoe,.c-sow .seeds,.c-water .t-can,.c-water .drops,.c-harvest .t-wheat,.c-harvest .bsk,.c-tablet .t-tab,.c-tablet .satg{opacity:1}
+.kv-fm .arm{transform-origin:96px 114px}
+.c-hoe .arm{animation:kxHoe 2.2s infinite}.c-sow .arm{animation:kvSow 1.8s ease-in-out infinite}.c-water .arm{animation:kvPour 3.2s ease-in-out infinite}.c-harvest .arm{animation:kvHarv 2.6s ease-in-out infinite}.c-tablet .arm{transform:rotate(-70deg)}
+.kv-fm .bob{animation:kvBreath 3s ease-in-out infinite}.c-hoe .bob{animation:kxBob 2.2s infinite}
+.kv-fm .can{transform-origin:123px 133px}.c-water .can{animation:kvCan 3.2s ease-in-out infinite}
+.kv-fm .tab{transform-origin:123px 133px;transform:rotate(70deg)}
+.c-sow .seeds circle{animation:kvSeed 1.8s ease-in infinite}.c-water .drops circle{animation:kvDrop 1.1s ease-in infinite}
+.kv-fm .beam{animation:kvBeam 1s linear infinite}.kv-fm .satb{animation:kvBob 3s ease-in-out infinite}
+.kv-fm .sun{animation:kvSun 70s ease-in-out infinite alternate}.kv-fm .cl{animation:kvCloud 24s ease-in-out infinite alternate}
+/* crops grow through the chores: tilled -> sown -> watered -> harvest-ready */
+.kv-fm .plg{transform-box:fill-box;transform-origin:50% 100%;transition:transform 2.6s ease}
+.c-hoe .plg{transform:scale(0)}.c-sow .plg{transform:scale(.3)}.c-tablet .plg{transform:scale(.55)}.c-water .plg{transform:scale(.75)}.c-harvest .plg{transform:scale(1)}
+.kv-fm .ear{opacity:0;transition:opacity 1.5s}.c-harvest .ear{opacity:1}
+@keyframes kvSow{0%,100%{transform:rotate(-30deg)}50%{transform:rotate(22deg)}}
+@keyframes kvPour{0%,100%{transform:rotate(-12deg)}50%{transform:rotate(-28deg)}}
+@keyframes kvCan{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(26deg)}}
+@keyframes kvHarv{0%,100%{transform:rotate(8deg)}45%{transform:rotate(-62deg)}}
+@keyframes kvBreath{50%{transform:translateY(-1.6px)}}
+@keyframes kvSeed{0%{opacity:0;transform:translate(0,0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),72px)}}
+@keyframes kvDrop{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(14px,80px)}}
+@keyframes kvBeam{to{stroke-dashoffset:-20}}
+@keyframes kvBob{50%{transform:translateY(-6px)}}
+@keyframes kvSun{to{transform:translate(160px,-6px)}}
+@keyframes kvCloud{from{transform:translateX(-40px)}to{transform:translateX(60px)}}
+
+/* board: 3D entrance, pointer tilt, glare */
+.kb-w{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .18s ease-out,box-shadow .25s}
+.kb-w:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(-4px)}
+.kb-w:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.6),transparent 60%);transition:opacity .25s}
+.kb-w:hover:after{opacity:1}
+@keyframes kbIn{from{opacity:0;transform:perspective(900px) rotateX(-26deg) translateY(40px) scale(.95)}to{opacity:1;transform:perspective(900px)}}
+
+@media(max-width:900px){.kv-farmer{display:none}.kv-head,.kv-steps,.kv-ringwrap{margin-left:0}.kv-s{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){#kf b,#kf i,.kv-fm *,.kv-core,.kv-viz i{animation:none!important}.kv-s{transform:none}}
+.kv-p{border-top:3px solid var(--c,var(--line))}.kv-p small{color:var(--c,var(--muted));font-weight:700}
+
+/* ================= HERO: living 3D farm diorama (replaces the old upper half) ================= */
+.hero{min-height:min(720px,calc(100vh - 130px))}
+.h3{position:relative;min-height:560px;--k:1}
+.h3-card{position:absolute;inset:0;border-radius:28px;overflow:hidden;z-index:0;background:linear-gradient(#cfe4cd,#e9f1dd 62%,#f4ecc9);box-shadow:0 30px 60px rgba(23,61,42,.12)}
+.h3-sun{position:absolute;top:13%;right:17%;width:86px;height:86px;border-radius:50%;background:#e8c96f;box-shadow:0 0 0 17px #e8c96f30;animation:h3Sun 22s ease-in-out infinite alternate}
+.h3-sun:before{content:"";position:absolute;inset:-64px;border-radius:50%;background:repeating-conic-gradient(rgba(232,201,111,.4) 0 6deg,transparent 6deg 18deg);-webkit-mask-image:radial-gradient(circle,#000 32%,transparent 68%);mask-image:radial-gradient(circle,#000 32%,transparent 68%);animation:kvSpin 46s linear infinite}
+@keyframes h3Sun{from{transform:translate(-50px,16px)}to{transform:translate(30px,-14px)}}
+.h3-cl{position:absolute;left:-30%;width:var(--w);height:calc(var(--w) * .45);border-radius:99px;background:#fff;opacity:.85;animation:h3Cl linear infinite}
+.h3-cl:before,.h3-cl:after{content:"";position:absolute;background:#fff;border-radius:50%}
+.h3-cl:before{width:50%;height:120%;left:14%;top:-50%}.h3-cl:after{width:38%;height:90%;right:14%;top:-30%}
+@keyframes h3Cl{to{left:110%}}
+.h3-hl{position:absolute;left:-4%;width:108%;bottom:0;height:54%;translate:calc(var(--px,0) * var(--f) * -1px) calc(var(--py,0) * var(--f) * -.5px)}
+
+/* 3D stage: tilted island, flat fields on top, upright sprites that always face the viewer */
+.h3-w{position:absolute;inset:0;z-index:2;pointer-events:none;perspective:1500px;perspective-origin:50% 42%}
+.hero:not(.h3-in) .h3-w{opacity:0}
+.hero.h3-in .h3-w{animation:h3Pop 1.4s .25s cubic-bezier(.2,.9,.3,1) backwards}
+@keyframes h3Pop{from{opacity:0;transform:translateY(60px) scale(.85) rotate(-4deg)}}
+.h3-stage{position:absolute;left:50%;top:56%;width:0;height:0;transform-style:preserve-3d;--rx:58deg;--rz:-38deg;transform:scale(var(--k,1)) rotateX(var(--rx)) rotateZ(var(--rz))}
+.h3-fl{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;animation:h3Fl 5s ease-in-out infinite}
+@keyframes h3Fl{50%{translate:0 0 14px}}
+.h3-sl{position:absolute;left:-210px;top:-210px;width:420px;height:420px;border-radius:46px;transform:translateZ(var(--z))}
+.fl{position:absolute;border-radius:10px;transform:translateZ(30.8px)}
+.h3-shadow{border-radius:50%;background:rgba(10,30,18,.35);filter:blur(34px);transform:translateZ(-30px)}
+.f-wheat{background:repeating-linear-gradient(90deg,#d9b855 0 6px,#e8c96f 6px 12px);box-shadow:inset 0 0 0 5px #7a5a38}
+.f-crop{background:repeating-linear-gradient(90deg,#4d8b58 0 7px,#6fb36a 7px 14px);box-shadow:inset 0 0 0 5px #7a5a38}
+.f-soil{background:repeating-linear-gradient(0deg,#6b4a2e 0 8px,#8a6440 8px 16px);box-shadow:inset 0 0 0 4px #5a4028}
+.f-path{border-radius:0;background:#e6d49d;box-shadow:inset 0 0 0 2px #d4c084}
+.f-pond{border-radius:50%;background:radial-gradient(#9fd4ee,#4d9cc4);box-shadow:0 0 0 5px #bfe0a8}
+.f-pond:before,.f-pond:after{content:"";position:absolute;inset:30%;border-radius:50%;border:2px solid rgba(255,255,255,.7);animation:h3Rip 3s ease-out infinite}
+.f-pond:after{animation-delay:1.5s}
+@keyframes h3Rip{from{transform:scale(.2);opacity:1}to{transform:scale(1.7);opacity:0}}
+.h3-scan{width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:2px solid #fff;animation:h3Scan 3.6s ease-out infinite}
+@keyframes h3Scan{from{transform:translateZ(31.5px) scale(.3);opacity:.9}to{transform:translateZ(31.5px) scale(6);opacity:0}}
+.bb{position:absolute;left:0;top:0;width:0;height:0;transform:translate3d(var(--x),var(--y),var(--z,32px)) rotateZ(calc(var(--rz) * -1)) rotateX(calc(var(--rx) * -1))}
+.bb>*{position:absolute;left:0;bottom:0;translate:-50% 0;transform-origin:50% 100%}
+.sw>*{animation:h3Sway var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes h3Sway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+.cg>*{animation:h3Sway var(--d,3s) ease-in-out infinite alternate,h3Grow 10s ease-in-out infinite;animation-delay:var(--dl,0s),0s}
+@keyframes h3Grow{0%,100%{scale:.82}45%,75%{scale:1.12}}
+.mill .mb{transform-origin:40px 46px;animation:kvSpin 7s linear infinite}
+.spr-bb .spr{transform-origin:40px 90px;animation:h3Spr 7s ease-in-out infinite}
+@keyframes h3Spr{0%,100%{transform:scale(.15)}35%,85%{transform:scale(1)}}
+.trk{position:absolute;left:0;top:51px;width:0;height:0;transform-style:preserve-3d;transform:translateZ(31px)}
+.trk-m{position:absolute;left:0;top:0;width:0;height:0;transform-style:preserve-3d;animation:h3Drive 18s linear infinite}
+@keyframes h3Drive{from{translate:-190px 0}to{translate:190px 0}}
+.trk-b>svg{animation:h3Fd 18s linear infinite}
+@keyframes h3Fd{0%,100%{opacity:0}6%,94%{opacity:1}}
+.trk .wh{transform-box:fill-box;transform-origin:center;animation:kvSpin 1.1s linear infinite}
+.h3-cs{width:90px;height:60px;border-radius:50%;background:rgba(10,30,18,.2);filter:blur(10px);animation:h3Cs 9s ease-in-out infinite alternate}
+@keyframes h3Cs{to{translate:30px 18px}}
+.rc{width:120px;height:58px;animation:h3Drift 8s ease-in-out infinite alternate}
+@keyframes h3Drift{to{transform:translateX(26px)}}
+.rc>svg{display:block}
+.drops{position:absolute;left:0;top:100%;width:100%;height:1px;animation:h3Rain 10s linear infinite}
+.drops i{position:absolute;top:0;width:2px;height:13px;background:linear-gradient(#7fb8d8,transparent);animation:h3Drop 1s linear infinite}
+@keyframes h3Drop{from{translate:0 0;opacity:0}20%{opacity:.9}to{translate:-6px 150px;opacity:0}}
+@keyframes h3Rain{0%,55%{opacity:1}65%,92%{opacity:0}100%{opacity:1}}
+.h3-sat{position:absolute;left:0;top:0;width:44px;height:26px;margin:-13px 0 0 -22px;z-index:6;pointer-events:none;opacity:0;filter:drop-shadow(0 4px 5px rgba(23,61,42,.3))}
+.h3-pts{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden;border-radius:28px}
+.h3-pts i{position:absolute;bottom:-12px;width:var(--s);height:var(--s);border-radius:50% 0 50% 0;background:#8fd18c;opacity:0;animation:h3Rise linear infinite}
+.h3-pts i:nth-child(3n){background:#e6c66d}.h3-pts i:nth-child(4n){background:#fff}
+@keyframes h3Rise{0%{transform:translate(0,0) rotate(0);opacity:0}10%{opacity:.8}50%{transform:translate(24px,-300px) rotate(180deg)}100%{transform:translate(-18px,-620px) rotate(360deg);opacity:0}}
+/* the original text and data nodes, now floating in front of the scene */
+.h3 .visual-top,.h3 .visual-note,.h3 .visual-index{z-index:7}
+.h3 .visual-note{cursor:pointer;transform:perspective(700px) rotateY(calc(var(--px,0) * -10deg)) rotateX(calc(var(--py,0) * 8deg));animation:h3Bob 5s ease-in-out infinite;transition:box-shadow .3s}
+.h3 .visual-note:hover{box-shadow:0 22px 44px rgba(23,61,42,.22)}
+.h3 .visual-note:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+@keyframes h3Bob{50%{translate:0 -6px}}
+
+/* copy side: kinetic headline, pop-in lines, living button */
+.wd{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.hero h1{transform:perspective(900px) rotateX(calc(var(--py,0) * -5deg)) rotateY(calc(var(--px,0) * 7deg));text-shadow:0 10px 26px rgba(23,61,42,.12);animation:h3Bob 7s ease-in-out infinite}
+.hero h1 .ch:hover{transform:translateY(-8px) scale(1.05)}
+.hero:not(.h3-in) .status-label,.hero:not(.h3-in) .ch,.hero:not(.h3-in) #hero-description,.hero:not(.h3-in) #start-button,.hero:not(.h3-in) .hero-footnote{opacity:0}
+.hero.h3-in .status-label{animation:h3Up .8s .05s cubic-bezier(.2,.8,.2,1) backwards}
+.hero.h3-in .ch{animation:h3Ch .9s cubic-bezier(.2,.9,.3,1.15) backwards;animation-delay:calc(.2s + var(--i) * 34ms)}
+.hero.h3-in #hero-description{animation:h3Up .9s 1s cubic-bezier(.2,.8,.2,1) backwards}
+.hero.h3-in #start-button{animation:h3Up .9s 1.15s cubic-bezier(.2,.8,.2,1) backwards}
+.hero.h3-in .hero-footnote{animation:h3Up .9s 1.3s cubic-bezier(.2,.8,.2,1) backwards}
+@keyframes h3Ch{from{opacity:0;transform:perspective(600px) translateY(.5em) rotateX(-100deg) translateZ(-60px)}}
+@keyframes h3Up{from{opacity:0;transform:translateY(26px) perspective(600px) rotateX(-25deg)}}
+.hero #start-button{position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(23,61,42,.28);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s}
+.hero #start-button:hover{transform:perspective(600px) translateY(-3px) rotateX(10deg);box-shadow:0 22px 40px rgba(23,61,42,.34)}
+.hero #start-button:active{transform:translateY(1px) scale(.97)}
+.hero #start-button:after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.28) 50%,transparent 70%);transform:translateX(-120%);animation:h3Sheen 3.6s 1.6s infinite}
+@keyframes h3Sheen{40%,100%{transform:translateX(120%)}}
+.hero #start-button span{display:inline-block;animation:h3Nudge 2s ease-in-out infinite}
+@keyframes h3Nudge{50%{transform:translate(3px,-3px)}}
+.status-label span{animation:kvPulse 2s ease-in-out infinite}
+.hero-footnote span{display:inline-block;animation:kvSpin 9s linear infinite}
+@media(max-width:980px){.hero{grid-template-columns:1fr;min-height:0}.h3{min-height:460px}}
+@media(prefers-reduced-motion:reduce){.h3 *,.hero h1,.hero .ch,.hero .status-label,.hero #hero-description,.hero #start-button,.hero #start-button:after,.hero #start-button span,.hero .hero-footnote,.hero-footnote span,.status-label span{animation:none!important}}

@@ -1,0 +1,21 @@
+{
+  "name": "krishiniti-project",
+  "version": "1.0.0",
+  "description": "KRISHINITI — Evidence-based agricultural decision-support system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js && node test_actionplan.js && node test_soil_sync.js && node test_soil_report_workflow.js && node test_dynamic_crop_rotations.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@google/genai": "^2.31.0",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1"
+  }
+}

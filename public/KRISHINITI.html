@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173d2a">
+  <title>KRISHINITI — From Space Data to Crop Decisions</title>
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAnkSURBVHhe7VqLO1VZH57/46uZUrqrMaamSbfJyLWUQoRCOShKVFREKER3lWi6pxsquUy5VCRikBSZJrqhosglFef9nt/yndPZe59P9dm7me851vO8j+O3bnu9e631u+1v/mU8GJqMb/gCTUM/AXyBpqGfAL5A09BPAF+gaegngC/4u2G/YTG0Zg0XyKXCP4oArVkj0NjchM0HIwR1UkFSAobOHgmPLV6IP38ICRmnEHE4CgZuxoJ2qlgevgLRx3bAZZMMw+eOEdSLDckIsFvniLqX9WjtaEVO0TVcvJqCqpoqyOXdSMxMxrA5PYsbYKyFgSZD2O99Z2NxvSQPjc2NoDJn1XzBuGJDEgLs1y9GZc19hBwIwyjLcfCOXo3Iw9H4xdUQlj42OJ56EjfLCzDIXBvumz0RFBsC9y2eWBnlyxb+quUVdifEYNLiaYKxxYboBAybMxrPm54jYF8wgvaHIDRuM8w8LXA45RiMl8/CibQEtrAXr14gNH4Llmxyw/5zB5BbegNuYcuQlpuOnSf34GxmIm7dLcYAEy3BHGJCdAK8o3zR0taC4XN1sP3ELvZGaWuPs/mRyTs6O6Bj9QPCDobj6fNn7JxXP6qGnb8jFq5fBB3rH5gW0HeajvQbGexi5M8hJkQn4HjaSaTn/w6fbWvZhZeQcRqZhdmw8VuIigd3sSjABTtO7sZMd1NGznh7fZh7zUFV7X1YeM9nO2hV9Bq2C1bv8MMIy7GCOcSE6AScy0zG6ctnsef0PrbNgw+EwsJ7Hsba/AiXYBlSrl+CHHJMczFgBMyQGbF+35lpY/pSQzxpeMLugJu3C/Dy9Us0NDbA0N1EMI9YEJ2AmNP7UFRRzNQflfrGesQmxrPzX1BeiA9dH1DzrAZWq23R1d2NUfPGsX501u88qEDWrRxMW2LAdtBU5xlIzU3Hgyd/4VvToYK5xIDoBJDq6urugpGHOVZs9cFMdzP4bvfDdFdDeEZ641eZMWz97ZGYlYz82zeV/Qw9eo4E7YLLNzNRUlmG5KzzmOIyA93yLslUougEELKLrqL8zwro2k5ASm4qOt91srdI29kpaCm8IlfhQ1cX5vnaKPss8FuIbnk3JjtNR25JHi7kpCC7MAeGbiZo7WhjhhF/HjEgCQF03u/VVOFR/WOm26c4z2AgdUhqkI5B4N4gTHScAscAZ9ZHd8EEJqd7IjQuHMV3/0D4oSjY+tlDLczrcCfRwxIQgCB1CDpd1J9qqWkqgwL/Oyxfk8gOt93MhkdBSMPMxxJOYbm1has3bmOaYlV0avR1NyEc5lJgvHFgmQEKEBnnt4glYz8yzD1nI28shscUqi0tL1h6pAuzLfv3jLZu/fvcOTiUQyR0BaQnAACWXlUrNcsxO3qO7ylfyxtHW1w27yc7RAqZCXyxxIbkhIw2GwYW4RzsIw5QnTO6R64VVHEXzvb+sEHwmDobgoDmTEyC7OYVahwlKSCJASQzl651Qe1dY+Y0WPqaQGHACekXE9l1uB83wXwivRGfWMDU5nHUk9gqosB4pIP4f2H97h47RJGzNXBifRTuF1djvmrFwjmEAuiE0AxgELeG07IOIPx9pPYLU+F7oTk7Av4yUGf6X2yE5pampTtiQQ7PwfmN7D2ANLyMjDJSXzvUHQCCKT/6YEVhW57svIUhXbGkhA32Po5YBNtezdT5BRdVdbzCxFG5jUdCf5cfYUkBCjgHrYcL1/3BDeovGlvxZaDEeyM/55/WSl/+PQhHANc4Bzkitq6WqWcSvXjB8xs5o8tFiQlgDDWWo9t91MZZ5gDFHNmPzrfv+MsUlGuFGQxtUmhs6aWV4g6ug1a5tIGSNUSMNFxMjNTB5kN48gpfEU2Oelrfp9PQdtiNOcY/LdCx4WsQfIO+WNIAbUEbDu+kz2MjrUeR05vplsuh8dmL0Gfz8EYK12cvXyOaQZ1pfF1I3OgiGh+X6nw2QTIQpcxZyXySLSg/ZfCcYMTnr2oUy6cLrmE9NOMIH5bqfFZBJh5WaD9bQfOXkkU7e1QpIeiR5W1VbD0sRbUfy18kgAKWTU0NSC/vECSC2mgxEHPT6FXAshdpYvrr6cPMcZKfB38T0CvBFA4ioo6U3SEpQ6s19gqMdfHilmB/HaTnX+BFbVZ29NO31no11OU2GnjUuY3TLDXF9RPXWLAdqKqbIy1LoyWmXFkurbje57nP3MZLTMXjMVHrwTY+S9irmlhxS0M4qklUoXtb9uZL0+orKnC44YnzORVbbchZiMK79xi4+XfLsC6PQGcegqFNzQ9R1LWeSRln8erN68RsHcjpw3dFcGxoRyZY6AzS66oyuz8Hdiz0HOVV99BfNJvnHp16JUAugPW7PBjv8lPV23DQtk191VkWkjNTWN9+eMNnzOaqb4BRsLzfqUgExv3BSv/1188ncUMVNt8LgEK3K+9z7xOvlwdPkkA/X+GdLdcDlmoh7KNgoABzEAajFGWY1FSWYr1MYGC8XojICQujGWSdiXEwDXUHXp2PwnaEAFkSZKprMCOE7u/HgFDLUbi3sNKvGl/w0LWJCMCaFEfursYuiFHUnayWk3RGwEEOq9xSQeRX3YTbW/bWUZJtZ6py4eVSLuRwbJFhKJ7f3w9AggUniYC6KxT9kaRzRlorIVBptoovleMyMNRgrEIvRFAydJvTT8GPcgEp8SIapu//Qgo4BriwY5CUlYyzHh3ABHU3NoMY97Na+Nnj61HoxkBYQcjYL3WTllH0Z6SqlKWBaIACSVTrhZfw7kriZwxPpeAGbKZLOdIGalDF45gWfgKTr06qCVgpocZVm71VZuYXBTowuooakvZXdW6JZtkWLPTnyMjxyY2KV4JpyBXTv2Q2SPgs30tWySFzCkSzNc4sjAPzOOpYkq0rNvDvW9MPGdx5uLXq4NaAjQJfSZgXUwg8kpvsBieqpxSX7b+DhwZqbxH9Y+UoBSZoi4sPpxTp4D5io+u986Tuzh19P0B/3m+FH0mIOLwVpb8uF6Si8EqGiC3NA/Owdztrmc3EV4R3iw0/rPjFGhbfLQcR8//nskcNzjjcf1j9pugex1rHTxq8yEeaVUp0is9gWiEEA6mTK/53MuKsPYlAvgE0CgXVFEX36oGYtA9w/5Hny5AiMtx7Fk6QAjYd3/AlEIoBQYvQ1ynOKTe8xPSpBqDAGKRVPigx6evvO7dD1V8wgg/LxoKupe1LEvPfgEjJ73PWQhHiitKsNYGz3OnaFAbwSQQUW+Qpe8C+Os9aBtMUrQ5kvRZwIorr/71F6OjD57efqiTpn6VoAMl9etzcxgor+ULeKPR1HhsupygZwQmxjH6b/lt0hBmy9Fnwn4f0c/AXyBpqGfAL5A09BPAF+gaegngC/QNPQTwBdoGv4N5xVkVR5DdoMAAAAASUVORK5CYII=">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="KRISHINITI.css">
+  <link rel="stylesheet" href="KRISHINITI.space.css">
+  <link rel="stylesheet" href="KRISHINITI.farm.css">
+  <link rel="stylesheet" href="KRISHINITI.dashboard.css">
+  <link rel="stylesheet" href="KRISHINITI.action-plan.css">
+  
+  <!-- Map library: Leaflet & Leaflet.draw -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <script src="KRISHINITI.engine.js" defer></script>
+  <script src="KRISHINITI.farm.js" defer></script>
+  <script src="KRISHINITI.js" defer></script>
+  <script src="KRISHINITI.space.js" defer></script>
+  <script src="KRISHINITI.soil.js" defer></script>
+  <script src="KRISHINITI.vegetation.js" defer></script>
+  <script src="KRISHINITI.climate.js" defer></script>
+  <script src="KRISHINITI.water.js" defer></script>
+  <script src="KRISHINITI.terrain.js" defer></script>
+  <script src="KRISHINITI.decision.js" defer></script>
+  <script src="KRISHINITI.dashboard.js" defer></script>
+  <script src="KRISHINITI.pdf.js" defer></script>
+  <script src="KRISHINITI.action-plan.js" defer></script>
+  <!-- Client-side OCR Engine for Soil Health Card text detection -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+</head>
+<body>
+
+  <!-- Language selection -->
+  <section id="language-screen" class="language-screen">
+    <div class="language-card">
+      <div class="logo-mark"><img src="logo.jpg" alt="KRISHINITI Logo"></div>
+      <p class="eyebrow">FARMING, REIMAGINED</p>
+      <h1>Welcome to<br>KRISHINITI.</h1>
+      <p class="muted">Choose your language to get started.</p>
+
+      <button class="language-choice" data-lang="en">
+        <span class="language-symbol">EN</span>
+        <span><strong>English</strong><small>Continue in English</small></span>
+        <span class="arrow">↗</span>
+      </button>
+
+      <button class="language-choice" data-lang="hi">
+        <span class="language-symbol">हि</span>
+        <span><strong>हिंदी</strong><small>हिंदी में आगे बढ़ें</small></span>
+        <span class="arrow">↗</span>
+      </button>
+
+      <p class="tiny">You can change the language anytime.</p>
+    </div>
+    <div class="language-art">
+      <div class="art-sun"></div>
+      <div class="art-hill hill-one"></div>
+      <div class="art-hill hill-two"></div>
+      <div class="art-hill hill-three"></div>
+      <div class="art-caption">
+        <span>01 / A NEW WAY TO FARM</span>
+        <h2>Every field has<br>a story to tell.</h2>
+        <p>Start with your land. Build better decisions from there.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main application -->
+  <div id="app" class="hidden">
+    <header class="topbar">
+      <a href="#" class="brand" id="home-link">
+        <div class="brand-icon"><img src="logo.jpg" onerror="this.src='favicon.png'" alt="KRISHINITI Logo"></div>
+        <div>
+          <strong>KRISHINITI</strong>
+          <small>FROM SPACE DATA TO CROP DECISIONS</small>
+        </div>
+      </a>
+
+      <nav class="top-nav">
+        <button class="nav-link active" data-screen="welcome">Overview</button>
+        <button class="nav-link" data-screen="map">Select farm</button>
+        <button class="nav-link" data-screen="details">Farm profile</button>
+        <button class="nav-link" data-screen="analysis">Land report</button>
+        <button class="nav-link" data-screen="action-plan" id="nav-action-plan">Action Plan</button>
+      </nav>
+
+      <button id="language-toggle" class="language-toggle">文&nbsp; EN / हिं</button>
+    </header>
+
+    <main>
+      <!-- Welcome -->
+      <section id="welcome-screen" class="page">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="status-label"><span></span> A SMARTER START FOR YOUR FARM</div>
+            <h1 id="hero-title">Your farm.<br><em>Better decisions.</em></h1>
+            <p id="hero-description">
+              Understand your land, learn from past seasons, and prepare
+              for changing weather — one step at a time.
+            </p>
+            <button class="button button-dark" id="start-button">
+              Start with your farm <span>↗</span>
+            </button>
+            <div class="hero-footnote">
+              <span>✳</span> Simple tools. Clear information. Farmer first.
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="visual-top"><span>FIELD NOTES / 001</span><span>INDIA ↗</span></div>
+            <div class="sun-disc"></div>
+            <div class="visual-field field-a"></div>
+            <div class="visual-field field-b"></div>
+            <div class="visual-field field-c"></div>
+            <div class="visual-plant plant-a">🌾</div>
+            <div class="visual-plant plant-b">🌱</div>
+            <div class="visual-note">
+              <div class="note-icon">⌖</div>
+              <div><strong>Start with your location</strong><small>Every field is different.</small></div>
+            </div>
+            <div class="visual-index">25°N<br>85°E</div>
+          </div>
+        </div>
+
+        <div class="section-intro">
+          <div><p class="eyebrow">YOUR FARM, YOUR WAY</p><h2>A clearer picture of your land.</h2></div>
+          <p>Three simple steps to begin building your farm profile.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-number">01</div><div class="feature-icon">⌖</div>
+            <h3>Locate your field</h3>
+            <p>Find your village and mark your field boundary on the satellite map.</p>
+            <span class="feature-footer">LOCATION FIRST ↗</span>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">02</div><div class="feature-icon">▤</div>
+            <h3>Tell your farm's story</h3>
+            <p>Add the crops you grew, weather you experienced, and water you use.</p>
+            <span class="feature-footer">YOUR EXPERIENCE MATTERS ↗</span>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">03</div><div class="feature-icon">✳</div>
+            <h3>Prepare for insights</h3>
+            <p>Build a foundation for future climate and crop-planning tools.</p>
+            <span class="feature-footer">MORE TO COME ↗</span>
+          </article>
+        </div>
+      </section>
+
+      <!-- Map -->
+      <section id="map-screen" class="page hidden">
+        <div class="page-heading">
+          <div><p class="eyebrow">STEP 01 / YOUR LAND</p><h1>Where is your field?</h1>
+            <p>Search for a village, zoom into the satellite view, and outline your field.</p></div>
+          <span class="step-count">01 <span>/ 03</span></span>
+        </div>
+
+        <div class="map-tools">
+          <form id="search-form" class="search-box">
+            <span>⌕</span>
+            <input id="location-search" type="text" placeholder="Search village, town or address">
+            <button class="button button-dark" type="submit">Search</button>
+          </form>
+          <button class="button button-light" id="locate-button" type="button">⌖ Use my location</button>
+          <button class="button button-green" id="draw-button" type="button">✎ Draw field boundary</button>
+          <button class="button button-light" id="clear-button" type="button">Clear</button>
+          <button class="button button-light" id="map-new-profile-btn" type="button" title="Start a fresh field profile">🌱 New Profile</button>
+        </div>
+
+        <div class="map-layout">
+          <div class="map-frame">
+            <div id="map"></div>
+            <div id="map-message" class="map-message">Preparing satellite map…</div>
+            <div class="map-legend"><span></span> YOUR SELECTED FIELD</div>
+          </div>
+
+          <aside class="panel field-panel">
+            <div class="panel-top"><p class="eyebrow">FIELD SUMMARY</p><span id="field-status" class="status-tag">NOT MARKED</span></div>
+            <h2>Your land,<br>on the map.</h2>
+            <p class="muted">Zoom in closely to see field bunds. Click around your plot corners (Press ESC to remove the last point). Click the first point (or double-click) to finish.</p>
+            <div class="summary-row"><span>Location</span><strong id="field-location">Not selected</strong></div>
+            <div class="summary-row"><span>Centre coordinates</span><strong id="field-coordinates">—</strong></div>
+            <div class="summary-row"><span>Approx. area</span><strong id="field-area">0.00 acres</strong></div>
+
+            <!-- Land Type & Farming Suitability Detection Card -->
+            <div id="land-detection-card" class="land-detection-card hidden" aria-live="polite">
+              <div class="ld-card-header">
+                <span class="ld-card-eyebrow">SATELLITE LAND DETECTION</span>
+                <span id="ld-suitability-badge" class="ld-badge loading">Checking…</span>
+              </div>
+              <div class="ld-row">
+                <span class="ld-label">Land Type</span>
+                <strong id="ld-land-type" class="ld-value">—</strong>
+              </div>
+              <div class="ld-row">
+                <span class="ld-label">Farming Suitability</span>
+                <strong id="ld-farming-suitability" class="ld-value">—</strong>
+              </div>
+              <div class="ld-reason-box">
+                <span class="ld-reason-icon" id="ld-reason-icon">ⓘ</span>
+                <p id="ld-reason" class="ld-reason-text">Outlining a field boundary activates real-time ESA WorldCover &amp; DEM detection.</p>
+              </div>
+              <div id="ld-mixed-note" class="ld-mixed-note hidden"></div>
+              <div id="ld-unsuitable-warning" class="ld-warning-callout hidden">
+                <span>⚠️</span>
+                <div><strong>Warning:</strong> This land is not suitable for ordinary crop cultivation. Crop recommendations will be suspended.</div>
+              </div>
+            </div>
+
+            <div class="info-note"><span>ⓘ</span><p>Area is estimated from the boundary you draw. Please check it before using it for farm decisions.</p></div>
+            <button id="confirm-field" class="button button-dark full-width" disabled>Confirm field <span>→</span></button>
+            <button class="text-button" id="back-home" type="button">← Back to overview</button>
+          </aside>
+        </div>
+        <p class="map-disclaimer">High-resolution satellite imagery powered by Google Satellite &amp; OpenStreetMap Nominatim search. Browser location permission is optional.</p>
+      </section>
+
+      <!-- Farm details -->
+            <!-- Farm details — Redesigned Farm Profile (Phase 1) -->
+      <section id="details-screen" class="page hidden farm-profile-screen">
+        <div class="page-heading profile-heading">
+          <div>
+            <p class="eyebrow" id="profile-eyebrow">STEP 02 / SATELLITE FIELD PROBE &amp; FARM PROFILE</p>
+            <h1 id="profile-main-title">Your Farm Profile</h1>
+            <p id="profile-main-subtitle">Understand your field, verify satellite insights, and tell us how you manage your farm.</p>
+          </div>
+          <span class="step-count">02 <span>/ 03</span></span>
+        </div>
+
+        <!-- Telemetry Status Bar -->
+        <div class="satellite-probe-status-bar" id="satellite-probe-status-bar">
+          <div class="probe-status-pulse"></div>
+          <span class="probe-status-text" id="probe-status-text">🛰️ Connected to NASA POWER &amp; OpenLandMap · Ready to probe field telemetry</span>
+          <span class="probe-coords-badge" id="probe-coords-badge">Coordinates: —</span>
+        </div>
+
+        <!-- Compact Field Summary Header -->
+        <div class="field-summary-banner" id="field-summary-banner">
+          <div class="summary-pill-item">
+            <span class="summary-pill-label">Farm / Plot</span>
+            <strong class="summary-pill-val" id="summary-banner-name">Home Field</strong>
+          </div>
+          <div class="summary-pill-item">
+            <span class="summary-pill-label">Location</span>
+            <strong class="summary-pill-val" id="summary-banner-location">—</strong>
+          </div>
+          <div class="summary-pill-item">
+            <span class="summary-pill-label">Coordinates</span>
+            <strong class="summary-pill-val" id="summary-banner-coords">—</strong>
+          </div>
+          <div class="summary-pill-item">
+            <span class="summary-pill-label">Total Land Area</span>
+            <strong class="summary-pill-val" id="summary-banner-area">—</strong>
+          </div>
+          <div class="summary-pill-item">
+            <span class="summary-pill-label">Field Boundary</span>
+            <span class="status-indicator-badge pos" id="summary-boundary-status">✓ Boundary Defined</span>
+          </div>
+          <div class="summary-pill-item">
+            <span class="summary-pill-label">Satellite Data</span>
+            <span class="status-indicator-badge live" id="summary-satellite-status">🛰️ Live Telemetry Active</span>
+          </div>
+        </div>
+
+        <!-- Three-Stage Progress Navigation -->
+        <nav class="farm-profile-progress-nav" id="profile-progress-nav" aria-label="Farm Profile Progress">
+          <button type="button" class="progress-nav-step active" data-step="1" id="nav-step-intelligence">
+            <span class="step-circle">1</span>
+            <span class="step-title-text">Field Intelligence</span>
+          </button>
+          <div class="progress-nav-line"></div>
+          <button type="button" class="progress-nav-step" data-step="2" id="nav-step-practices">
+            <span class="step-circle">2</span>
+            <span class="step-title-text">Farming Practices</span>
+          </button>
+          <div class="progress-nav-line"></div>
+          <button type="button" class="progress-nav-step" data-step="3" id="nav-step-goals">
+            <span class="step-circle">3</span>
+            <span class="step-title-text">Farmer Goals</span>
+          </button>
+        </nav>
+
+        <div class="details-layout elevated-details-layout">
+          <form id="farm-form" class="panel form-panel elevated-form-panel">
+
+            <!-- ==================== PART 1: BASICS & FIELD INTELLIGENCE ==================== -->
+            <div class="profile-step-group" id="step-group-1">
+              <!-- Field Basics & Area -->
+              <div class="form-section profile-section-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">01</span>
+                  <div>
+                    <h2 class="section-card-title">Field Basics &amp; Boundary Area</h2>
+                    <p class="section-card-desc">Calculated automatically from your drawn field boundary on the satellite map.</p>
+                  </div>
+                </div>
+                <div class="form-grid">
+                  <label>Farm or Plot Name <span class="optional">OPTIONAL</span>
+                    <input id="farm-name" type="text" placeholder="e.g. North Field / Plot A">
+                  </label>
+                  <label>Land Area
+                    <div class="area-input">
+                      <input id="land-area" type="number" min="0.01" step="0.01" required placeholder="e.g. 2.5">
+                      <select id="area-unit">
+                        <option value="acres">Acres</option>
+                        <option value="bigha">Bigha</option>
+                        <option value="hectares">Hectares</option>
+                      </select>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- A. Soil Intelligence -->
+              <div class="form-section profile-section-card" id="soil-diagnostic-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">A</span>
+                  <div class="header-text-group">
+                    <div class="title-with-pill">
+                      <h2 class="section-card-title">Soil Intelligence</h2>
+                      <span class="auto-detected-pill" id="soil-probe-pill">🛰️ Satellite Detected</span>
+                    </div>
+                    <p class="section-card-desc">Derived from OpenLandMap 250m USDA classification &amp; root-zone water retention grids.</p>
+                  </div>
+                </div>
+
+                <!-- Soil Composition Horizontal Bar -->
+                <div class="soil-texture-bars-container" id="soil-texture-bars-container">
+                  <div class="soil-bar-label-row">
+                    <span>Soil Texture: <strong id="detected-soil-texture-title">Detecting...</strong></span>
+                    <span id="detected-soil-source-res" class="muted font-mono" style="font-size:0.75rem;">Source: OpenLandMap · 250m resolution</span>
+                  </div>
+                  <div class="soil-stacked-bar" id="soil-stacked-bar">
+                    <div class="bar-segment sand" id="bar-sand" style="width: 32%;" title="Sand: 32%">Sand 32%</div>
+                    <div class="bar-segment silt" id="bar-silt" style="width: 42%;" title="Silt: 42%">Silt 42%</div>
+                    <div class="bar-segment clay" id="bar-clay" style="width: 26%;" title="Clay: 26%">Clay 26%</div>
+                  </div>
+                  <div class="soil-fractions-legend">
+                    <span><span class="dot sand"></span> Sand: <strong id="val-sand-pct">32%</strong></span>
+                    <span><span class="dot silt"></span> Silt: <strong id="val-silt-pct">42%</strong></span>
+                    <span><span class="dot clay"></span> Clay: <strong id="val-clay-pct">26%</strong></span>
+                  </div>
+                </div>
+
+                <!-- Detected Soil Summary Display -->
+                <div class="detected-box" id="detected-soil-box">
+                  <div class="detected-primary-row">
+                    <div class="detected-icon-badge">🌱</div>
+                    <div>
+                      <strong class="detected-title" id="detected-soil-title">Detecting Soil Texture...</strong>
+                      <p class="detected-desc" id="detected-soil-desc">Probing sand/silt/clay fractions and soil organic carbon from satellite...</p>
+                    </div>
+                  </div>
+                  <div class="detected-metrics-chips" id="detected-soil-metrics">
+                    <span class="meta-chip" id="chip-soil-bucket">💧 100 mm Root Bucket</span>
+                    <span class="meta-chip" id="chip-soil-ph">🧪 pH 7.2 (Neutral)</span>
+                    <span class="meta-chip" id="chip-soil-soc">🌿 Organic Carbon 0.64%</span>
+                    <span class="meta-chip" id="chip-soil-status">Status: Satellite detected</span>
+                  </div>
+                </div>
+
+                <!-- 1-Tap Choice: Accept or Customize -->
+                <div class="override-controls-row">
+                  <button type="button" class="choice-toggle-btn active" id="btn-soil-accept">✓ Accept Satellite Soil</button>
+                  <button type="button" class="choice-toggle-btn" id="btn-soil-customize">✏️ Edit Soil Information</button>
+                </div>
+
+                <!-- Collapsible Custom Soil Selectors -->
+                <div class="custom-override-panel hidden" id="custom-soil-panel">
+                  <div class="override-instructions-banner" style="margin-bottom: 12px; padding: 8px 12px; background: #f0fdf4; border-radius: 6px; border: 1px solid #bbf7d0; font-size: 0.82rem; color: #166534;">
+                    ✏️ <strong>Manual Soil Adjustments:</strong> You can adjust estimated soil texture, mineral fractions, pH, and organic carbon based on your on-ground knowledge of this field.
+                  </div>
+                  <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
+                    <label>Manual Soil Type Override
+                      <select id="soil-type">
+                        <option value="unknown">I don't know</option>
+                        <option value="alluvial">Alluvial (Sandy-Silty-Clay)</option>
+                        <option value="clay">Clay (Heavy / High Retention)</option>
+                        <option value="loamy" selected>Loamy / Clay Loam</option>
+                        <option value="sandy">Sandy (Light / High Drainage)</option>
+                        <option value="silty">Silty</option>
+                        <option value="mixed">Other / Mixed</option>
+                      </select>
+                    </label>
+                    <label>Soil pH (Acidity / Alkalinity)
+                      <input type="number" step="0.1" min="3.0" max="11.0" id="manual-soil-ph" placeholder="e.g. 7.2">
+                    </label>
+                    <label>Soil Organic Carbon (%)
+                      <input type="number" step="0.01" min="0.01" max="10.0" id="manual-soil-soc" placeholder="e.g. 0.65">
+                    </label>
+                    <label>Sand Fraction (%)
+                      <input type="number" step="1" min="0" max="100" id="manual-sand-pct" placeholder="e.g. 38">
+                    </label>
+                    <label>Silt Fraction (%)
+                      <input type="number" step="1" min="0" max="100" id="manual-silt-pct" placeholder="e.g. 40">
+                    </label>
+                    <label>Clay Fraction (%)
+                      <input type="number" step="1" min="0" max="100" id="manual-clay-pct" placeholder="e.g. 22">
+                    </label>
+                  </div>
+                </div>
+
+                <!-- ==================== NEW DEDICATED SECTION: DO YOU HAVE A SOIL TEST REPORT? ==================== -->
+                <div class="soil-test-report-section" id="soil-test-report-section" style="margin-top: 20px; padding-top: 18px; border-top: 2px dashed #cbd5e1;">
+                  <div class="test-report-header" style="margin-bottom: 14px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                      <span class="report-badge-icon" style="display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 8px; background: #e0f2fe; color: #0369a1; font-size: 1rem;">📋</span>
+                      <h3 class="test-report-heading" style="margin: 0; font-size: 1.05rem; font-weight: 800; color: #0f172a;">Do You Have a Soil Test Report?</h3>
+                    </div>
+                    <p class="test-report-subheading" style="margin: 0; font-size: 0.84rem; color: #475569; line-height: 1.45;">Have you already tested your farm soil? Upload your Soil Health Card or laboratory report to improve the accuracy of your farm analysis.</p>
+                  </div>
+
+                  <!-- Two Selectable Choice Cards -->
+                  <div class="test-report-choice-grid" id="test-report-choice-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                    <div class="test-report-card" id="card-soil-test-yes" role="button" tabindex="0" data-choice="yes">
+                      <div class="card-radio-indicator"></div>
+                      <div class="choice-icon-wrap">📄</div>
+                      <div class="choice-text-wrap">
+                        <strong class="choice-title">YES, I HAVE A SOIL TEST REPORT</strong>
+                        <p class="choice-desc">Upload your Soil Health Card (PDF / JPG / PNG). We'll extract nutrient measurements for your verification.</p>
+                      </div>
+                    </div>
+
+                    <div class="test-report-card" id="card-soil-test-no" role="button" tabindex="0" data-choice="no">
+                      <div class="card-radio-indicator"></div>
+                      <div class="choice-icon-wrap">🔬</div>
+                      <div class="choice-text-wrap">
+                        <strong class="choice-title">NO, I DON'T HAVE A SOIL TEST REPORT</strong>
+                        <p class="choice-desc">Find certified Government Soil Testing Labs, KVKs, and Agricultural Universities near your farm.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Hidden backward-compatible select for scripts referencing $("soil-test") -->
+                  <select id="soil-test" style="display: none;">
+                    <option value="unknown">Not sure</option>
+                    <option value="yes">Yes, I have an official Soil Test Card</option>
+                    <option value="no" selected>No (use satellite estimates)</option>
+                  </select>
+
+                  <!-- WORKFLOW 1: YES — UPLOAD SOIL TEST REPORT -->
+                  <div class="test-workflow-panel hidden" id="workflow-soil-report-upload">
+                    <div class="workflow-card-inner" style="background: #ffffff; border: 1.5px solid #bbf7d0; border-radius: 12px; padding: 18px; box-shadow: 0 4px 14px rgba(22, 101, 52, 0.06);">
+                      <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 12px;">
+                        <div>
+                          <h4 style="margin: 0 0 4px 0; font-size: 0.98rem; font-weight: 800; color: #166534; display: flex; align-items: center; gap: 6px;">
+                            <span>📤</span> Upload Your Soil Test Report
+                          </h4>
+                          <p style="margin: 0; font-size: 0.82rem; color: #475569;">Upload your official Soil Health Card or laboratory soil analysis report. We will extract available soil information and help you verify it.</p>
+                        </div>
+                        <span class="file-spec-chip" style="white-space: nowrap; font-size: 0.72rem; font-weight: 700; background: #f0fdf4; color: #15803d; border: 1px solid #86efac; border-radius: 99px; padding: 4px 10px;">PDF, JPG, PNG &bull; Max 2 MB</span>
+                      </div>
+
+                      <!-- Drag and Drop Upload Zone -->
+                      <div class="upload-dropzone" id="soil-report-dropzone">
+                        <input type="file" id="soil-report-file-input" accept=".pdf,image/*" style="display: none;">
+                        <div class="dropzone-idle-content" id="dropzone-idle-content">
+                          <div class="dropzone-icon" style="font-size: 2.2rem; margin-bottom: 6px;">📑</div>
+                          <div class="dropzone-text" style="font-size: 0.88rem; font-weight: 700; color: #0f172a; margin-bottom: 4px;">
+                            Drag and drop your Soil Test Report here, or
+                          </div>
+                          <button type="button" class="btn-browse-file" id="btn-browse-soil-file">📁 Browse Files</button>
+                          <div class="dropzone-subtext" style="font-size: 0.74rem; color: #64748b; margin-top: 8px;">
+                            Accepted formats: <strong>PDF, JPG, PNG, WebP</strong> &bull; Auto-optimized for instant OCR
+                          </div>
+                        </div>
+
+                        <!-- Uploaded File Card (Visible after file selection) -->
+                        <div class="dropzone-file-selected hidden" id="dropzone-file-selected">
+                          <div class="file-info-row" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                              <span class="file-type-icon" id="file-type-icon" style="font-size: 1.8rem;">📄</span>
+                              <div style="text-align: left;">
+                                <strong class="file-name-display" id="file-name-display" style="font-size: 0.88rem; color: #0f172a; display: block;">Soil_Health_Card.pdf</strong>
+                                <span class="file-size-display" id="file-size-display" style="font-size: 0.75rem; color: #64748b;">1.2 MB &bull; Ready to analyze</span>
+                              </div>
+                            </div>
+                            <div class="file-actions" style="display: flex; gap: 8px;">
+                              <button type="button" class="btn-file-action replace" id="btn-replace-soil-file" title="Replace with another file">🔄 Replace</button>
+                              <button type="button" class="btn-file-action remove" id="btn-remove-soil-file" title="Remove file">✕ Remove</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Upload Error Notification Box -->
+                      <div class="upload-error-box hidden" id="upload-error-box" style="margin-top: 10px; padding: 10px 14px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; color: #991b1b; font-size: 0.82rem; display: flex; align-items: center; gap: 8px;">
+                        <span>⚠️</span>
+                        <span id="upload-error-text">File error</span>
+                      </div>
+
+                      <!-- Document Preview Box -->
+                      <div class="document-preview-container hidden" id="document-preview-container" style="margin-top: 14px; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; background: #f8fafc;">
+                        <div class="preview-header" style="background: #f1f5f9; padding: 6px 12px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                          <span style="font-size: 0.76rem; font-weight: 700; color: #475569; text-transform: uppercase;">Document Preview</span>
+                          <span style="font-size: 0.72rem; color: #64748b;" id="preview-format-tag">Image Preview</span>
+                        </div>
+                        <div class="preview-body" style="padding: 10px; text-align: center; max-height: 280px; overflow-y: auto;">
+                          <img id="soil-report-img-preview" src="" alt="Soil Test Preview" style="max-width: 100%; max-height: 250px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: none;">
+                          <div id="soil-report-pdf-preview" style="display: none; padding: 20px; background: #ffffff; border-radius: 6px; border: 1px dashed #cbd5e1; color: #334155;">
+                            <div style="font-size: 2.2rem; margin-bottom: 6px;">📑</div>
+                            <strong style="display: block; font-size: 0.88rem; color: #0f172a;" id="pdf-preview-title">PDF Document Attached</strong>
+                            <p style="margin: 4px 0 0 0; font-size: 0.76rem; color: #64748b;">PDF parsed and ready for OCR analysis.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Action Button: Analyze Soil Report -->
+                      <div style="margin-top: 14px; display: flex; justify-content: flex-end; gap: 10px;">
+                        <button type="button" class="btn-analyze-report" id="btn-analyze-soil-report">
+                          <span class="btn-icon">⚡</span>
+                          <span class="btn-text">Analyze Soil Report</span>
+                        </button>
+                      </div>
+
+                      <!-- Extraction Results & Verification Table Container -->
+                      <div class="extraction-results-container hidden" id="extraction-results-container" style="margin-top: 18px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+                        <div class="extraction-header" style="margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                          <div>
+                            <h5 style="margin: 0; font-size: 0.94rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px;">
+                              <span>📋</span> Extracted Soil Health Card Data
+                            </h5>
+                            <p style="margin: 2px 0 0 0; font-size: 0.78rem; color: #64748b;">Please verify and adjust any extracted values below before confirming.</p>
+                          </div>
+                          <span class="extraction-badge" id="extraction-method-badge" style="font-size: 0.72rem; font-weight: 700; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; border-radius: 99px; padding: 3px 10px;">OCR Extracted</span>
+                        </div>
+
+                        <!-- Metadata row (Farmer name, Sample ID, Lab, Date) -->
+                        <div class="report-meta-grid" id="report-meta-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 12px; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                          <div>
+                            <span style="font-size: 0.68rem; color: #64748b; display: block; text-transform: uppercase;">Farmer Name</span>
+                            <input type="text" id="extracted-meta-farmer" value="" placeholder="Farmer Name" style="font-size: 0.8rem; font-weight: 700; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 6px; width: 100%;">
+                          </div>
+                          <div>
+                            <span style="font-size: 0.68rem; color: #64748b; display: block; text-transform: uppercase;">Sample ID / SHC No.</span>
+                            <input type="text" id="extracted-meta-sampleid" value="" placeholder="SHC-XXXXXX" style="font-size: 0.8rem; font-weight: 700; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 6px; width: 100%;">
+                          </div>
+                          <div>
+                            <span style="font-size: 0.68rem; color: #64748b; display: block; text-transform: uppercase;">Testing Laboratory</span>
+                            <input type="text" id="extracted-meta-lab" value="" placeholder="Laboratory Name" style="font-size: 0.8rem; font-weight: 700; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 6px; width: 100%;">
+                          </div>
+                          <div>
+                            <span style="font-size: 0.68rem; color: #64748b; display: block; text-transform: uppercase;">Sample Date</span>
+                            <input type="date" id="extracted-meta-date" value="" style="font-size: 0.8rem; font-weight: 700; border: 1px solid #cbd5e1; border-radius: 4px; padding: 3px 6px; width: 100%;">
+                          </div>
+                        </div>
+
+                        <!-- 12-Parameter Extraction Verification Table -->
+                        <div class="extraction-table-wrapper" style="overflow-x: auto; border: 1px solid #e2e8f0; border-radius: 8px; background: #ffffff;">
+                          <table class="extraction-table" style="width: 100%; border-collapse: collapse; font-size: 0.82rem; text-align: left;">
+                            <thead>
+                              <tr style="background: #f8fafc; border-bottom: 1.5px solid #e2e8f0; color: #475569; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.3px;">
+                                <th style="padding: 8px 12px;">Parameter</th>
+                                <th style="padding: 8px 12px; width: 160px;">Extracted Value (Editable)</th>
+                                <th style="padding: 8px 12px; width: 90px;">Unit</th>
+                                <th style="padding: 8px 12px;">Status / Interpretation</th>
+                              </tr>
+                            </thead>
+                            <tbody id="extraction-table-body">
+                              <!-- Dynamically generated rows for 12 parameters -->
+                            </tbody>
+                          </table>
+                        </div>
+
+                        <!-- Collapsible Raw Detected Text Container -->
+                        <details id="detected-ocr-raw-details" class="hidden" style="margin-top: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 8px 12px; font-size: 0.78rem;">
+                          <summary style="cursor: pointer; font-weight: 700; color: #166534; user-select: none;">🔍 View Raw Detected Text from Document</summary>
+                          <pre id="detected-ocr-raw-text" style="white-space: pre-wrap; font-family: monospace; font-size: 0.74rem; background: #ffffff; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; max-height: 180px; overflow-y: auto; margin: 8px 0 0 0; color: #334155;"></pre>
+                        </details>
+
+                        <!-- Confirmation & Save Banner -->
+                        <div style="margin-top: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+                          <div style="font-size: 0.78rem; color: #64748b; display: flex; align-items: center; gap: 6px;">
+                            <span>ℹ️</span> <em>Values are not applied until you click confirm.</em>
+                          </div>
+                          <div style="display: flex; gap: 8px;">
+                            <button type="button" class="btn-cancel-extract" id="btn-cancel-soil-extract">Cancel</button>
+                            <button type="button" class="btn-confirm-extract" id="btn-confirm-soil-extract">
+                              <span>✓</span> Confirm &amp; Save Lab Values
+                            </button>
+                          </div>
+                        </div>
+
+                        <!-- Post-Confirmation Success Alert -->
+                        <div class="confirmation-success-box hidden" id="confirmation-success-box" style="margin-top: 12px; padding: 12px 16px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 8px; color: #166534; font-size: 0.85rem; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+                          <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 1.2rem;">🎉</span>
+                            <div>
+                              <strong style="display: block;">Your Soil Test Report Has Been Added Successfully.</strong>
+                              <span style="font-size: 0.76rem; color: #15803d;">Verified laboratory parameters will prioritize over satellite estimates in your Land Report &amp; Action Plan.</span>
+                            </div>
+                          </div>
+                          <span class="status-indicator-badge pos" style="font-size: 0.72rem;">LAB VERIFIED</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- WORKFLOW 2: NO — FIND NEARBY SOIL TESTING AGENCIES -->
+                  <div class="test-workflow-panel hidden" id="workflow-nearby-labs">
+                    <div class="workflow-card-inner" style="background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; padding: 18px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);">
+                      <div style="margin-bottom: 14px;">
+                        <h4 style="margin: 0 0 4px 0; font-size: 0.98rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px;">
+                          <span>🔬</span> Find a Soil Testing Laboratory Near Your Farm
+                        </h4>
+                        <p style="margin: 0; font-size: 0.82rem; color: #475569;">Get your soil scientifically tested at a nearby laboratory to understand its nutrient status and improve fertilizer recommendations.</p>
+                      </div>
+
+                      <!-- Search Reference & Farm Coordinate Context Banner -->
+                      <div class="search-coord-banner" id="nearby-search-coord-banner" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                          <span style="font-size: 1.1rem;">📍</span>
+                          <div>
+                            <span style="font-size: 0.7rem; color: #64748b; display: block; text-transform: uppercase;">Search Reference (Selected Farm Polygon)</span>
+                            <strong style="font-size: 0.84rem; color: #0f172a;" id="nearby-farm-coord-display">Using Farm Coordinates: Lat 25.8642°N, Lng 85.7891°E</strong>
+                          </div>
+                        </div>
+                        <span class="distance-badge-type" style="font-size: 0.72rem; font-weight: 700; background: #eff6ff; color: #1e40af; border: 1px solid #dbeafe; border-radius: 99px; padding: 3px 10px;">Straight-line Distance (Haversine)</span>
+                      </div>
+
+                      <!-- Missing Farm Coordinates Fallback Box (hidden by default) -->
+                      <div class="missing-coords-fallback hidden" id="missing-coords-fallback" style="margin-bottom: 14px; padding: 12px 14px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; color: #92400e; font-size: 0.82rem;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                          <span style="font-size: 1.2rem;">⚠️</span>
+                          <strong>Farm Location Not Selected Yet:</strong>
+                        </div>
+                        <p style="margin: 0 0 10px 0;">To calculate accurate distances to nearby testing centers, draw your farm on the map or select your district below:</p>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                          <label style="font-size: 0.78rem; font-weight: 700; color: #78350f;">Select District:
+                            <select id="select-fallback-district" style="margin-left: 6px; padding: 4px 8px; border-radius: 4px; border: 1px solid #d97706; font-size: 0.8rem;">
+                              <option value="samastipur" selected>Samastipur (Bihar)</option>
+                              <option value="muzaffarpur">Muzaffarpur (Bihar)</option>
+                              <option value="vaishali">Vaishali / Hajipur (Bihar)</option>
+                              <option value="patna">Patna (Bihar)</option>
+                              <option value="darbhanga">Darbhanga (Bihar)</option>
+                              <option value="begusarai">Begusarai (Bihar)</option>
+                              <option value="bhagalpur">Bhagalpur (Bihar)</option>
+                              <option value="jaipur">Jaipur (Rajasthan)</option>
+                              <option value="haldia">Haldia / Purba Medinipur (West Bengal)</option>
+                            </select>
+                          </label>
+                          <button type="button" id="btn-apply-fallback-district" style="background: #d97706; color: #ffffff; border: none; padding: 4px 12px; border-radius: 4px; font-weight: 700; font-size: 0.78rem; cursor: pointer;">Find Labs in District</button>
+                        </div>
+                      </div>
+
+                      <!-- Google Redirect Action Box for Nearest Soil Test Centre -->
+                      <div class="google-soil-centre-redirect-box" style="margin: 16px 0; padding: 22px; background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%); border: 1.5px solid #86efac; border-radius: 12px; text-align: center; box-shadow: 0 4px 14px rgba(22, 101, 52, 0.08);">
+                        <div style="font-size: 2.2rem; margin-bottom: 8px;">🔬📍</div>
+                        <h4 style="margin: 0 0 6px 0; font-size: 1.05rem; font-weight: 800; color: #166534;">Find Nearest Soil Testing Centre</h4>
+                        <p style="margin: 0 0 16px 0; font-size: 0.84rem; color: #334155; max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.5;">
+                          Locate government-certified Soil Testing Laboratories, Krishi Vigyan Kendras (KVK), and Agricultural University centres near your farm on Google Maps using your exact coordinates.
+                        </p>
+                        <button type="button" class="btn-nearest-soil-centre" id="btn-nearest-soil-centre" style="background: #166534; color: #ffffff; border: none; padding: 13px 26px; border-radius: 8px; font-weight: 800; font-size: 0.96rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 14px rgba(22, 101, 52, 0.28); transition: transform 0.15s ease, background 0.15s ease;">
+                          <span>🔍</span> Find Nearest Soil Testing Centre on Google Maps ↗
+                        </button>
+                        <div style="margin-top: 10px; font-size: 0.75rem; color: #64748b;" id="google-search-coord-hint">
+                          Using selected farm location coordinates
+                        </div>
+                      </div>
+
+                      <!-- Laboratories List Container (Hidden backward-compatibility container) -->
+                      <div class="laboratories-list hidden" id="laboratories-list-container" style="display: none;">
+                        <!-- Hidden container kept for programmatic compatibility -->
+                      </div>
+
+                      <!-- Guidance Section: What Should You Bring? -->
+                      <div class="soil-sampling-guidance-card" style="margin-top: 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                          <span style="font-size: 1.1rem;">💡</span>
+                          <h5 style="margin: 0; font-size: 0.88rem; font-weight: 800; color: #0f172a;">What Should You Bring to the Laboratory?</h5>
+                        </div>
+                        <ul style="margin: 0; padding-left: 18px; font-size: 0.8rem; color: #475569; line-height: 1.55;">
+                          <li><strong>Representative Soil Sample:</strong> Collect ~500 grams of composite soil from 0–15 cm depth across 8–10 spots in a V-shape pattern. Avoid field edges, manure heaps, and stagnant water channels. Mix thoroughly and dry in shade before bagging.</li>
+                          <li><strong>Farm Location Details:</strong> Khata / Khesra / Survey number, village, block, and district name.</li>
+                          <li><strong>Farmer Identification Details:</strong> Aadhaar number or Kisan Credit Card (KCC) details (required by government laboratories for Soil Health Card subsidies).</li>
+                          <li><strong>Previous Cropping History:</strong> Last two crop seasons and fertilizer/manure application records if available.</li>
+                          <li><em>Note: Every laboratory may have specific submission containers or nominal testing fees. We recommend calling the laboratory before visiting to confirm operating hours.</em></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- B. Agro-Ecological Intelligence -->
+              <div class="form-section profile-section-card" id="agrozone-diagnostic-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">B</span>
+                  <div class="header-text-group">
+                    <div class="title-with-pill">
+                      <h2 class="section-card-title">Agro-Ecological Intelligence</h2>
+                      <span class="auto-detected-pill">🗺️ ICAR / NARP Sub-Zone</span>
+                    </div>
+                    <p class="section-card-desc">Identifies traditional regional cropping patterns and climate vulnerabilities.</p>
+                  </div>
+                </div>
+
+                <div class="detected-box" id="detected-zone-box">
+                  <div class="detected-primary-row">
+                    <div class="detected-icon-badge">🌾</div>
+                    <div>
+                      <strong class="detected-title" id="detected-zone-title">Identifying Agro-Ecological Zone...</strong>
+                      <p class="detected-desc" id="detected-zone-desc">Resolving regional cropping calendar and historical crop choices...</p>
+                    </div>
+                  </div>
+                  
+                  <!-- Seasonal Cropping Patterns Separated (Kharif vs Rabi) -->
+                  <div class="seasonal-patterns-box" id="seasonal-patterns-box" style="margin: 12px 0; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                      <div class="season-subcard kharif" style="border-left: 3px solid #16a34a; padding-left: 8px;">
+                        <span class="font-small font-bold" style="color: #166534; text-transform: uppercase;">🌧️ Kharif (Monsoon) Baseline:</span>
+                        <p id="kharif-crops-display" style="margin: 4px 0 0 0; font-weight: 700; color: #0f172a;">Paddy (Rice) / Maize</p>
+                      </div>
+                      <div class="season-subcard rabi" style="border-left: 3px solid #d97706; padding-left: 8px;">
+                        <span class="font-small font-bold" style="color: #b45309; text-transform: uppercase;">❄️ Rabi (Winter) Baseline:</span>
+                        <p id="rabi-crops-display" style="margin: 4px 0 0 0; font-weight: 700; color: #0f172a;">Wheat / Mustard / Lentils</p>
+                      </div>
+                    </div>
+                    <div class="regional-reason-note" style="margin-top: 10px; font-size: 0.8rem; color: #475569; line-height: 1.45; border-top: 1px dashed #e2e8f0; padding-top: 8px;">
+                      <span style="font-weight: 700; color: #173d2a;">Why this pattern:</span> <span id="regional-reason-text">Adapted to regional monsoon precipitation and alluvial soil moisture holding capacity.</span>
+                    </div>
+                  </div>
+
+                  <div class="detected-metrics-chips" id="detected-zone-metrics">
+                    <span class="meta-chip" id="chip-zone-baseline">Traditional: Paddy ➔ Wheat</span>
+                    <span class="meta-chip warn" id="chip-zone-risk">⚠️ Terminal Heat Risk</span>
+                  </div>
+                </div>
+
+                <div class="override-controls-row">
+                  <button type="button" class="choice-toggle-btn active" id="btn-crop-accept">✓ I Follow This Regional Baseline</button>
+                  <button type="button" class="choice-toggle-btn" id="btn-crop-customize">✏️ Customize My Crop History</button>
+                </div>
+              </div>
+
+              <!-- C. Field Climate Context -->
+              <div class="form-section profile-section-card" id="climate-context-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">C</span>
+                  <div class="header-text-group">
+                    <div class="title-with-pill">
+                      <h2 class="section-card-title">Field Climate Context</h2>
+                      <span class="auto-detected-pill" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">☀️ 45-Year Historical Baseline (1981–2025)</span>
+                    </div>
+                    <p class="section-card-desc">NASA POWER multidecadal satellite reanalysis. (Historical climatology — not a 7-day live weather forecast).</p>
+                  </div>
+                </div>
+
+                <div class="climate-metrics-grid" id="climate-metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 10px;">
+                  <div class="climate-metric-box" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
+                    <span class="muted font-small" style="display:block;">Annual Rainfall</span>
+                    <strong id="climate-val-rainfall" style="font-size: 1.1rem; color: #0284c7;">1,150 mm / yr</strong>
+                    <span class="font-micro muted" style="display:block; margin-top:2px;" id="climate-pattern-rainfall">85% in Kharif Monsoon</span>
+                  </div>
+                  <div class="climate-metric-box" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
+                    <span class="muted font-small" style="display:block;">Mean Temperature</span>
+                    <strong id="climate-val-temp" style="font-size: 1.1rem; color: #d97706;">25.8 °C</strong>
+                    <span class="font-micro muted" style="display:block; margin-top:2px;">Annual Climatology</span>
+                  </div>
+                  <div class="climate-metric-box" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
+                    <span class="muted font-small" style="display:block;">Heat Stress Indicator</span>
+                    <strong id="climate-val-heat" style="font-size: 0.95rem; color: #dc2626;">Late Rabi Heatwaves</strong>
+                    <span class="font-micro muted" style="display:block; margin-top:2px;">March >35°C grain shrivel</span>
+                  </div>
+                  <div class="climate-metric-box" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px;">
+                    <span class="muted font-small" style="display:block;">Historical Climate Variability</span>
+                    <strong id="climate-val-variability" style="font-size: 0.95rem; color: #475569;">±22% Rainfall Variance</strong>
+                    <span class="font-micro muted" style="display:block; margin-top:2px;">Monsoon shift 8–12 days</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==================== PART 2: FARMING PRACTICES ==================== -->
+            <div class="profile-step-group" id="step-group-2">
+              <div class="section-step-divider">
+                <span class="divider-tag">PRACTICES</span>
+                <h3>How Do You Manage Your Farm?</h3>
+              </div>
+
+              <!-- Water and Irrigation Visual Cards -->
+              <div class="form-section profile-section-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">02</span>
+                  <div>
+                    <h2 class="section-card-title">Water and Irrigation</h2>
+                    <p class="section-card-desc">Select how water reaches your crops. Note: Selecting an irrigation source does not assume unlimited water availability.</p>
+                  </div>
+                </div>
+
+                <div class="water-cards-selector" id="water-cards-selector" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                  <div class="water-choice-card" data-water="rainfed">
+                    <div class="water-choice-icon">🌧️</div>
+                    <strong class="water-choice-title">Rainfed Farming</strong>
+                    <p class="water-choice-desc">Strictly dependent on natural monsoon rainfall. High sensitivity to prolonged dry spells.</p>
+                  </div>
+                  <div class="water-choice-card active" data-water="canal">
+                    <div class="water-choice-icon">💧</div>
+                    <strong class="water-choice-title">Canal Irrigation</strong>
+                    <p class="water-choice-desc">Seasonal irrigation from canal releases or government lift schemes when water is scheduled.</p>
+                  </div>
+                  <div class="water-choice-card" data-water="tubewell">
+                    <div class="water-choice-icon">🚜</div>
+                    <strong class="water-choice-title">Borewell / Tubewell</strong>
+                    <p class="water-choice-desc">Groundwater pumping from private or shared borewell. Electricity and water table dependent.</p>
+                  </div>
+                  <div class="water-choice-card" data-water="drip">
+                    <div class="water-choice-icon">🚿</div>
+                    <strong class="water-choice-title">Drip Irrigation</strong>
+                    <p class="water-choice-desc">Precision micro-irrigation saving 35–50% water with pressurized root-zone delivery.</p>
+                  </div>
+                  <div class="water-choice-card" data-water="sprinkler">
+                    <div class="water-choice-icon">💦</div>
+                    <strong class="water-choice-title">Sprinkler Irrigation</strong>
+                    <p class="water-choice-desc">Overhead sprinkler nozzles suitable for pulses, mustard, and undulating terrain.</p>
+                  </div>
+                  <div class="water-choice-card" data-water="mixed">
+                    <div class="water-choice-icon">🔄</div>
+                    <strong class="water-choice-title">Multiple Sources</strong>
+                    <p class="water-choice-desc">Combination of seasonal canal, groundwater tubewell, and farm pond storage.</p>
+                  </div>
+                </div>
+
+                <!-- Backing inputs to maintain form state and test compatibility -->
+                <input type="hidden" id="water-availability" value="moderate">
+                <input type="hidden" id="water-source" value="canal">
+                <input type="hidden" id="crop-growth" value="good">
+              </div>
+
+              <!-- Crop History Management -->
+              <div class="form-section profile-section-card" id="crop-history-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">03</span>
+                  <div>
+                    <h2 class="section-card-title">Crop History</h2>
+                    <p class="section-card-desc">Record past crops grown on this field in chronological order. Add, edit, or remove entries.</p>
+                  </div>
+                </div>
+
+                <div class="override-controls-row" style="margin-bottom: 14px;">
+                  <button type="button" class="choice-toggle-btn active" id="btn-crop-accept-03">✓ I Follow This Regional Baseline</button>
+                  <button type="button" class="choice-toggle-btn" id="btn-crop-customize-03">✏️ Edit Crop History</button>
+                </div>
+
+                <div class="custom-crops-container" id="custom-crops-panel">
+                  <div class="section-row" style="margin-bottom: 12px;">
+                    <p class="muted form-help" style="margin: 0;">Add crops harvested on this field (crop, season, year, optional yield):</p>
+                    <button type="button" class="button button-light button-small" id="add-crop">+ Add crop record</button>
+                  </div>
+                  <div id="crop-list" class="repeat-list"></div>
+                  <!-- Hidden weather list to maintain full backward compatibility with collectRows -->
+                  <div id="weather-list" class="repeat-list hidden"></div>
+                  <button type="button" id="add-weather" class="hidden"></button>
+                </div>
+              </div>
+
+              <!-- Nearby Market Access -->
+              <div class="form-section profile-section-card" id="mandi-diagnostic-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">04</span>
+                  <div class="header-text-group">
+                    <div class="title-with-pill">
+                      <h2 class="section-card-title">Nearby Market Access</h2>
+                      <span class="auto-detected-pill">🏛️ Regulated APMC Directory</span>
+                    </div>
+                    <p class="section-card-desc">Geocoded regulated wholesale mandis from official agricultural marketing directories. Real-time MSP benchmark rates.</p>
+                  </div>
+                </div>
+
+                <div class="mandis-display-grid" id="mandis-display-grid">
+                  <div class="mandi-item-card primary-mandi">
+                    <div class="mandi-header">
+                      <span class="mandi-tag">PRIMARY REGULATED APMC</span>
+                      <strong class="mandi-name" id="primary-mandi-name">Searching Mandis...</strong>
+                    </div>
+                    <div class="mandi-meta-row">
+                      <span class="meta-chip" id="primary-mandi-dist">Distance: —</span>
+                      <span class="meta-chip" id="primary-mandi-state-dist">State: —</span>
+                      <span class="meta-chip" id="primary-mandi-enam">e-NAM Active ✓</span>
+                    </div>
+                    <p class="mandi-crops-hint" id="primary-mandi-crops">Traded: Paddy, Wheat, Maize, Lentils</p>
+                    <div class="mandi-price-hint" id="primary-mandi-rates" style="font-size: 0.74rem; color: #166534; font-weight: 700; margin-top: 6px;">
+                      Benchmark Modal Rates: Paddy ₹2,350/q · Wheat ₹2,320/q · Lentils ₹6,750/q (Govt MSP / Modal Price Directory)
+                    </div>
+                    <div style="margin-top: 8px;">
+                      <a id="primary-mandi-map-link" href="#" target="_blank" rel="noopener noreferrer" class="font-small" style="color: #0284c7; text-decoration: underline; font-weight: 600;">📍 View Route on Map ↗</a>
+                    </div>
+                  </div>
+
+                  <div class="mandi-item-card secondary-mandi">
+                    <div class="mandi-header">
+                      <span class="mandi-tag">SECONDARY APMC MARKET</span>
+                      <strong class="mandi-name" id="secondary-mandi-name">Secondary Market...</strong>
+                    </div>
+                    <div class="mandi-meta-row">
+                      <span class="meta-chip" id="secondary-mandi-dist">Distance: —</span>
+                      <span class="meta-chip" id="secondary-mandi-state-dist">State: —</span>
+                    </div>
+                    <p class="mandi-crops-hint" id="secondary-mandi-crops">Regional wholesale market</p>
+                    <div style="margin-top: 8px;">
+                      <a id="secondary-mandi-map-link" href="#" target="_blank" rel="noopener noreferrer" class="font-small" style="color: #0284c7; text-decoration: underline; font-weight: 600;">📍 View Route on Map ↗</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="market-channel-selector" style="margin-top: 14px;">
+                  <label class="channel-radio-label">
+                    <input type="radio" name="market-channel" value="mandi" checked>
+                    <span>Sell at Regulated APMC Mandi (Higher benchmark price, transportation required)</span>
+                  </label>
+                  <label class="channel-radio-label">
+                    <input type="radio" name="market-channel" value="local">
+                    <span>Sell to Local Village Trader / Aggregator (Farmgate pickup, minor discount on MSP)</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- ==================== PART 3: FARMER GOALS ==================== -->
+            <div class="profile-step-group" id="step-group-3">
+              <div class="section-step-divider">
+                <span class="divider-tag">GOALS</span>
+                <h3>What Are Your Priorities?</h3>
+              </div>
+
+              <div class="form-section profile-section-card">
+                <div class="section-badge-header">
+                  <span class="section-num-badge">05</span>
+                  <div>
+                    <h2 class="section-card-title">Farmer Goals &amp; Strategy</h2>
+                    <p class="section-card-desc">Select all goals that matter for this field. The engine balances profitability, water efficiency, and resilience without making unsupported promises.</p>
+                  </div>
+                </div>
+
+                <div class="multi-goal-chips-container" id="multi-goal-chips">
+                  <button type="button" class="goal-chip active" data-goal="profit">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">💰</span>
+                    <span class="goal-text">Increase Farm Income</span>
+                    <span class="goal-subtext">Evaluate expected gross margin and high-value crop options</span>
+                  </button>
+                  <button type="button" class="goal-chip" data-goal="water">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">💧</span>
+                    <span class="goal-text">Reduce Water Consumption</span>
+                    <span class="goal-subtext">Save pumping energy, diesel costs, and groundwater</span>
+                  </button>
+                  <button type="button" class="goal-chip active" data-goal="soil">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">🌱</span>
+                    <span class="goal-text">Improve Soil Health</span>
+                    <span class="goal-subtext">Incorporate nitrogen-fixing legumes and increase organic carbon</span>
+                  </button>
+                  <button type="button" class="goal-chip active" data-goal="resilience">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">🛡️</span>
+                    <span class="goal-text">Reduce Climate-Related Risks</span>
+                    <span class="goal-subtext">Select crops resilient to erratic monsoon dry spells and heatwaves</span>
+                  </button>
+                  <button type="button" class="goal-chip" data-goal="productivity">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">📈</span>
+                    <span class="goal-text">Improve Crop Productivity</span>
+                    <span class="goal-subtext">Optimize agronomic timing, soil nutrients, and seed selection</span>
+                  </button>
+                  <button type="button" class="goal-chip" data-goal="food_security">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">🍚</span>
+                    <span class="goal-text">Maintain Household Food Security</span>
+                    <span class="goal-subtext">Ensure essential grain staple requirements for the household</span>
+                  </button>
+                  <button type="button" class="goal-chip" data-goal="short_duration">
+                    <span class="goal-check">✓</span>
+                    <span class="goal-icon">⚡</span>
+                    <span class="goal-text">Prefer Short-Duration Crops</span>
+                    <span class="goal-subtext">Quick 60–85 day turnover to avoid terminal season hazards</span>
+                  </button>
+                </div>
+
+                <!-- Dynamic Real-Time Strategy Feedback Box -->
+                <div class="dynamic-strategy-box" id="dynamic-strategy-box" style="margin-top: 16px;">
+                  <span class="strategy-icon">💡</span>
+                  <p class="strategy-text" id="dynamic-strategy-text">
+                    <strong>Active Strategy:</strong> If you prioritize income and water efficiency, the recommendation engine will evaluate crop options based on expected profitability and irrigation requirements.
+                  </p>
+                </div>
+
+                <!-- Backing select to maintain original compatibility -->
+                <select id="priority" class="hidden">
+                  <option value="balanced" selected>Balanced priorities</option>
+                  <option value="income">Improve income potential</option>
+                  <option value="weather">Reduce weather risks</option>
+                  <option value="water">Use less water</option>
+                  <option value="soil">Improve soil health</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Form Action Footer -->
+            <div class="form-actions elevated-form-actions" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: flex-end;">
+              <button type="button" class="button button-light" id="back-to-map" style="font-weight: 700; padding: 13px 22px;">← Back to Map</button>
+              <button type="submit" class="button button-dark button-action-highlight" id="save-profile-land-report-btn" style="background: #166534; color: #ffffff; font-weight: 800; font-size: 1.05rem; padding: 13px 26px; box-shadow: 0 4px 14px rgba(22, 101, 52, 0.3); border: none; border-radius: 8px; cursor: pointer;">
+                Save &amp; View Land Report →
+              </button>
+            </div>
+          </form>
+
+          <!-- Right Aside: Farm Intelligence Summary Panel -->
+          <aside class="panel profile-card elevated-profile-card">
+            <div class="profile-art">🌾</div>
+            <p class="eyebrow">FARM INTELLIGENCE SUMMARY</p>
+            <h2 id="preview-location">Field Overview</h2>
+            <p class="muted font-small">Verified data inputs for Land Report &amp; Action Plan.</p>
+            
+            <div class="readiness-gauge-box">
+              <div class="readiness-score-circle">
+                <strong id="readiness-score-val">85</strong>
+                <span>/ 100</span>
+              </div>
+              <div class="readiness-verdict-area">
+                <span class="readiness-badge" id="readiness-badge">High Adaptation Potential</span>
+                <p class="readiness-hint" id="readiness-hint">Calculated from soil capability, water balance, and market access.</p>
+              </div>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="shift-stat-rows">
+              <div class="summary-row">
+                <span>Selected Field Area</span>
+                <strong id="preview-area">—</strong>
+              </div>
+              <div class="summary-row">
+                <span>Soil Detection Status</span>
+                <strong id="preview-soil-status" class="pos">Satellite Detected</strong>
+              </div>
+              <div class="summary-row">
+                <span>Climate Risk Status</span>
+                <strong id="preview-climate-shift" class="warn">Moderate Shift</strong>
+              </div>
+              <div class="summary-row">
+                <span>Water Availability</span>
+                <strong id="preview-water-category">Canal Irrigation</strong>
+              </div>
+              <div class="summary-row">
+                <span>Nearest Market</span>
+                <strong id="preview-mandi-dist">—</strong>
+              </div>
+              <div class="summary-row">
+                <span>Profile Completion</span>
+                <strong id="preview-completion-status" class="pos">Ready (100%)</strong>
+              </div>
+            </div>
+
+            <div class="info-note" style="margin-top: 14px;">
+              <span>ⓘ</span>
+              <p>Your farm profile is saved locally in your browser. All inputs directly govern the Land Report and Crop Decision Intelligence Engine.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- Step 03: Land Analysis Report Screen -->
+      <section id="analysis-screen" class="page hidden">
+        <div id="save-refresh-toast" class="save-refresh-toast hidden" style="background:#ecfdf5; border:1px solid #6ee7b7; color:#065f46; padding:10px 16px; border-radius:10px; font-size:0.85rem; font-weight:600; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; animation:fadeIn 0.3s ease;">
+          <span>✓ Profile saved successfully — All satellite, soil &amp; climate intelligence refreshed with live data.</span>
+          <button type="button" onclick="this.parentElement.classList.add('hidden')" style="background:transparent; border:none; color:#065f46; font-size:1.1rem; cursor:pointer;">&times;</button>
+        </div>
+
+        <div class="page-heading report-header-main">
+          <div>
+            <p class="eyebrow" id="report-eyebrow">STEP 03 / LAND ANALYSIS REPORT</p>
+            <h1 id="report-title">Your land analysis report.</h1>
+            <p id="report-subtitle">Combining your saved field boundary and farm experience with live NASA POWER agroclimatology, Open-Meteo forecasts, and ISRIC SoilGrids data.</p>
+          </div>
+          <div class="report-header-controls">
+            <span class="step-count">03 <span>/ 03</span></span>
+            <div class="report-quick-actions">
+              <button type="button" class="button button-small button-light" id="print-report-btn" title="Print or Save Report as PDF">
+                🖨️ Print / PDF
+              </button>
+              <button type="button" class="button button-small button-light" id="refresh-report-btn" title="Refresh Live Satellite &amp; Soil APIs">
+                ↻ Refresh Live Data
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Systematic In-Page Quick Navigation Tabs -->
+        <nav class="report-nav-bar" id="report-nav-bar" aria-label="Report Quick Navigation">
+          <a href="#report-kpi-strip" class="report-nav-pill active">📊 Overview</a>
+          <a href="#section-location-card" class="report-nav-pill">01 Boundary &amp; Geography</a>
+          <a href="#section-water-card" class="report-nav-pill">02 Water Security</a>
+          <a href="#section-climate-card" class="report-nav-pill">03 Climate &amp; Weather</a>
+          <a href="#section-soil-card" class="report-nav-pill">04 Soil Health Profile</a>
+          <a href="#section-crops-card" class="report-nav-pill">05 Crop History</a>
+          <a href="#crop-recommendation-results" class="report-nav-pill">06 Crop Decision Engine</a>
+          <a href="#rotation-stress-test" class="report-nav-pill">07 Rotation Stress Test</a>
+          <a href="#ai-explanation-wrapper" class="report-nav-pill">08 AI Assistant</a>
+          <a href="#section-sources-card" class="report-nav-pill">09 Audit &amp; Sources</a>
+        </nav>
+
+        <!-- Data Transparency Banner -->
+        <div class="demo-disclaimer-banner" role="status">
+          <div class="demo-badge-pill">ⓘ DATA TRANSPARENCY NOTICE</div>
+          <p id="report-demo-notice">
+            Historical climate metrics are fetched live from the <strong>NASA POWER Daily Agroclimatology API</strong> for your selected coordinates (historical observations only — <strong>not a weather forecast</strong>). Mapped 250m soil property estimates are retrieved from <strong>ISRIC SoilGrids v2.0</strong>. Short-range forecasts are generated by <strong>Open-Meteo Numerical Weather Models</strong>.
+          </p>
+        </div>
+
+        <!-- Empty State -->
+        <div id="report-empty-state" class="panel report-empty hidden">
+          <div class="empty-icon">⌖</div>
+          <h2 id="empty-report-title">No farm profile saved yet.</h2>
+          <p class="muted" id="empty-report-desc">Outline your field on the satellite map and save your farm details to generate your land analysis report.</p>
+          <div class="report-empty-actions">
+            <button type="button" class="button button-dark" id="empty-go-map">Select field on map →</button>
+          </div>
+        </div>
+
+        <!-- Main Report Content -->
+        <div id="report-content" class="report-container">
+          <!-- 00. Executive Summary KPI Strip -->
+          <div id="report-kpi-strip" class="report-kpi-grid"></div>
+
+          <!-- STAGE 1: FIELD GEOGRAPHY & WATER INFRASTRUCTURE -->
+          <div class="report-grid-two">
+            <!-- 01. Selected Farm Location & Approximate Area -->
+            <article class="panel report-section-card" id="section-location-card">
+              <div class="report-card-header">
+                <div>
+                  <p class="eyebrow">01 / LOCATION &amp; BOUNDARY</p>
+                  <h2 id="sec-location-title">Selected farm location &amp; area</h2>
+                </div>
+                <span class="source-badge badge-user" id="badge-user-saved">FARMER &amp; MAP DATA</span>
+              </div>
+              <div id="report-location-body" class="report-card-body"></div>
+            </article>
+
+            <!-- 02. Irrigation & Water Availability -->
+            <article class="panel report-section-card" id="section-water-card">
+              <div class="report-card-header">
+                <div>
+                  <p class="eyebrow">02 / WATER &amp; IRRIGATION</p>
+                  <h2 id="sec-water-title">Irrigation &amp; water availability</h2>
+                </div>
+                <span class="source-badge badge-user">FARMER REPORTED</span>
+              </div>
+              <div id="report-water-body" class="report-card-body"></div>
+            </article>
+          </div>
+
+          <!-- STAGE 2: AGROCLIMATOLOGY & WEATHER INTELLIGENCE -->
+          <!-- 03A. Historical Rainfall, Temperature & Solar Radiation (NASA POWER) -->
+          <article class="panel report-section-card" id="section-climate-card">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow">03A / HISTORICAL AGROCLIMATOLOGY (NOT A FORECAST)</p>
+                <h2 id="sec-climate-title">Historical rainfall, temperature &amp; solar radiation</h2>
+              </div>
+              <span class="source-badge badge-mixed" id="badge-climate-source">LOADING NASA POWER…</span>
+            </div>
+            <div id="report-climate-body" class="report-card-body"></div>
+          </article>
+
+          <!-- 03B. Dedicated 7-Day Weather Forecast Section (Open-Meteo) -->
+          <article class="panel report-section-card" id="section-forecast-card">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow">03B / SHORT-RANGE WEATHER OUTLOOK (MODEL ESTIMATE — NOT GUARANTEED)</p>
+                <h2 id="sec-forecast-title">Upcoming 7-day weather forecast</h2>
+              </div>
+              <span class="source-badge badge-mixed" id="badge-forecast-source">LOADING OPEN-METEO…</span>
+            </div>
+            <div id="report-forecast-body" class="report-card-body"></div>
+          </article>
+
+          <!-- 03C. Weather-Risk & Crop-Protection Module -->
+          <article class="panel report-section-card" id="section-weather-risk-card">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow" id="sec-wr-eyebrow">03C / WEATHER-RISK &amp; CROP-PROTECTION ADVISORY</p>
+                <h2 id="sec-wr-title">Weather-risk &amp; crop-protection module</h2>
+              </div>
+              <span class="source-badge badge-mixed" id="badge-wr-source">EVALUATING RISKS…</span>
+            </div>
+            <div id="report-weather-risk-body" class="report-card-body"></div>
+          </article>
+
+          <!-- STAGE 3: UNIFIED SOIL HEALTH & REMOTE SENSING PROFILE -->
+          <!-- 04. Comprehensive Soil Health, ISRIC SoilGrids 250m & Water Planning -->
+          <article class="panel report-section-card" id="section-soil-card">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow">04 / SOIL HEALTH &amp; REMOTE SENSING PROFILE</p>
+                <h2 id="sec-soil-title">Soil Properties, Mapped Horizons &amp; Crop Water Planning</h2>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                <span class="source-badge badge-mixed" id="badge-soil-source">FARMER + SOILGRIDS 250M</span>
+                <span class="source-badge badge-mixed hidden" id="badge-soilgrids-source">SOILGRIDS ACTIVE</span>
+              </div>
+            </div>
+            <div id="report-soil-body" class="report-card-body"></div>
+            <!-- Compatibility container for legacy calls -->
+            <div id="report-soil-water-body" class="hidden"></div>
+          </article>
+
+          <!-- STAGE 4: CROP HISTORY & SEASON LOG -->
+          <!-- 05. Crop History & Farmer-Reported Performance -->
+          <article class="panel report-section-card" id="section-crops-card">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow">05 / CROP &amp; SEASON LOG</p>
+                <h2 id="sec-crops-title">Crop history &amp; performance</h2>
+              </div>
+              <span class="source-badge badge-user">FARMER REPORTED</span>
+            </div>
+            <div id="report-crops-body" class="report-card-body"></div>
+          </article>
+
+          <!-- STAGE 5: EVIDENCE-BASED CROP DECISION ENGINE -->
+          <!-- 06. Evidence-Based Crop Recommendation Results Container -->
+          <div id="crop-recommendation-results"></div>
+
+          <!-- STAGE 6: CROP ROTATION & RESILIENCE STRESS TEST -->
+          <!-- 07. Crop Rotation Stress Test UI Container -->
+          <div id="rotation-stress-test" style="margin-top: 28px;">
+            <article class="panel report-section-card">
+              <div class="report-card-header">
+                <div>
+                  <p class="eyebrow">07 / RESILIENCE &amp; ROTATION ANALYSIS</p>
+                  <h2 id="sec-rotation-title">Crop Rotation Stress Test &amp; Soil Building Strategy</h2>
+                  <p class="muted" style="margin: 4px 0 0; font-size: .82rem;">Compare alternative seasonal crop plans to evaluate cumulative water demand, climate vulnerabilities, and documented soil-health trajectories.</p>
+                </div>
+                <span class="source-badge badge-audit">ICAR &amp; FAO MODEL</span>
+              </div>
+
+              <div class="report-card-body">
+                <div class="panel form-panel" style="padding: 18px 20px; margin-bottom: 20px; background: #fafbf8;">
+                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) auto; gap: 14px; align-items: flex-end;">
+                    <label style="font-size: .78rem; font-weight: 700;">
+                      Plan A (Monoculture / Baseline)
+                      <select id="stress-plan-a" style="margin-top: 6px;">
+                        <option value="paddy,paddy">Paddy ➔ Paddy (Monoculture)</option>
+                        <option value="wheat,wheat">Wheat ➔ Wheat (Monoculture)</option>
+                        <option value="paddy,paddy,paddy">Paddy ➔ Paddy ➔ Paddy (3 Cycles)</option>
+                      </select>
+                    </label>
+
+                    <label style="font-size: .78rem; font-weight: 700;">
+                      Plan B (Standard Local Rotation)
+                      <select id="stress-plan-b" style="margin-top: 6px;">
+                        <option value="paddy,wheat" selected>Paddy ➔ Wheat (Standard Cereal)</option>
+                        <option value="maize,wheat">Maize ➔ Wheat (Diversified Cereal)</option>
+                        <option value="maize,mustard">Maize ➔ Mustard (Oilseed Break)</option>
+                      </select>
+                    </label>
+
+                    <label style="font-size: .78rem; font-weight: 700;">
+                      Plan C (Resilient Legume Relay)
+                      <select id="stress-plan-c" style="margin-top: 6px;">
+                        <option value="paddy,lentils" selected>Paddy ➔ Lentils (Legume Relay)</option>
+                        <option value="maize,lentils">Maize ➔ Lentils (Soil Restoration)</option>
+                        <option value="paddy,mustard,lentils">Paddy ➔ Mustard ➔ Lentils (3-Crop Cycle)</option>
+                      </select>
+                    </label>
+
+                    <div>
+                      <button type="button" id="recalc-stress-btn" class="button button-dark" style="white-space: nowrap; height: 42px;">
+                        Recalculate Stress Test
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="stress-test-results" class="stress-grid-three"></div>
+
+                <!-- Multi-Year Rotation Patterns & Golden Principles -->
+                <div id="rotation-soil-principles-container" style="margin-top: 24px;"></div>
+              </div>
+            </article>
+          </div>
+
+          <!-- STAGE 8: OPTIONAL GROUNDED AI EXPLANATION LAYER -->
+          <!-- 08. Grounded AI Explanation Layer -->
+          <section id="ai-explanation-wrapper" class="panel report-section-card" style="margin-top: 28px;">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow" id="ai-eyebrow">08 / OPTIONAL AI EXPLANATION LAYER (GROUNDED IN VERIFIED ENGINE DATA)</p>
+                <h2 id="ai-panel-title">Simple explanation of your crop &amp; rotation results</h2>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <span class="source-badge badge-mixed" id="badge-ai-status">OPTIONAL · OFF BY DEFAULT</span>
+                <label class="ai-mode-toggle" for="ai-enable-toggle">
+                  <input type="checkbox" id="ai-enable-toggle" />
+                  <span id="ai-toggle-label">Enable AI Explanation</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="report-card-body">
+              <p class="muted" id="ai-opt-in-desc" style="font-size: .8rem;">
+                KRISHINITI works 100% without AI. Turn on this optional assistant if you want a plain-language summary in Hindi or English of the verified ICAR/FAO calculations above. The AI never calculates yields or invents weather warnings.
+              </p>
+
+              <div id="ai-controls-row" class="ai-controls-row hidden">
+                <button type="button" id="generate-ai-explanation-btn" class="button button-dark button-small">
+                  ✳ Explain Verified Results
+                </button>
+                <span class="muted" id="ai-timestamp-note" style="font-size: .72rem;"></span>
+              </div>
+
+              <div id="ai-explanation-output" class="ai-explanation-output hidden" aria-live="polite"></div>
+            </div>
+          </section>
+
+      
+
+          <!-- STAGE 9: DATA SOURCES, DATE RANGES & TRANSPARENCY -->
+          <!-- 09. Data Sources, Date Ranges & Missing Information -->
+          <article class="panel report-section-card" id="section-sources-card" style="margin-top: 28px;">
+            <div class="report-card-header">
+              <div>
+                <p class="eyebrow">09 / TRANSPARENCY &amp; GAPS</p>
+                <h2 id="sec-sources-title">Data sources, date ranges &amp; missing information</h2>
+              </div>
+              <span class="source-badge badge-audit">AUDIT LOG</span>
+            </div>
+            <div id="report-sources-body" class="report-card-body"></div>
+          </article>
+
+          <!-- STAGE 10: BOTTOM ACTION BAR -->
+          <div class="panel report-action-bar">
+            <div class="action-bar-copy">
+              <p class="eyebrow">REPORT ACTIONS &amp; NEXT STEPS</p>
+              <h2 id="cta-crop-title">Farm Analysis Complete</h2>
+              <p class="muted" id="cta-crop-desc">
+                Your field data has been cross-referenced with NASA POWER climatology, Open-Meteo forecasts, ISRIC SoilGrids, and ICAR crop thresholds.
+              </p>
+              <div id="crop-options-feedback" class="crop-options-feedback hidden" role="status"></div>
+            </div>
+            <div class="action-bar-buttons">
+              <button type="button" id="analyse-crops-button" class="button button-dark" style="background: var(--forest); font-weight: 800; font-size: 1.05rem; padding: 12px 24px; box-shadow: 0 4px 14px rgba(23,61,42,0.25);">
+                Re-evaluate Crop Options <span>→</span>
+              </button>
+              <button type="button" id="print-report-bottom-btn" class="button button-light">
+                🖨️ Print / Save Report
+              </button>
+              <div class="secondary-report-actions">
+                <button type="button" id="edit-profile" class="button button-light">← Edit farm profile</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="action-plan-screen" class="page hidden action-plan-page">
+        <div class="page-heading action-plan-heading report-header-main">
+          <div>
+            <p class="eyebrow">NASA POWER / 45-YEAR AGROCLIMATOLOGY &amp; ACTION PLAN</p>
+            <h1>Field Climate Shift &amp; Action Plan</h1>
+            <p>Historical satellite evidence for your field with statistical trend projections to 2035 and 20-year rotation replay with data-driven profit plans.</p>
+          </div>
+          <div class="report-header-controls">
+            <div class="action-plan-controls">
+              <!-- Interactive Decade & Multi-Year Slide Bar -->
+              <div class="action-plan-slider-box" id="action-plan-slider-box">
+                <div class="slider-header-line">
+                  <div class="slider-title-group">
+                    <span class="slider-icon">⏱️</span>
+                    <span class="slider-title">DECADE SLIDE BAR &amp; HORIZON:</span>
+                    <strong id="slider-year-label" class="slider-val-badge">All 45 Years (1981–2025)</strong>
+                  </div>
+                  <span class="slider-hint" id="slider-active-indicator">All Decades Active</span>
+                </div>
+                <div class="slider-inputs-row">
+                  <div class="decade-slider-wrap">
+                    <input type="range" id="action-plan-year-slider" class="action-plan-range-input" min="0" max="5" step="1" value="5" aria-label="Decade Slider">
+                    <div class="decade-ticks">
+                      <span>1980s</span>
+                      <span>1990s</span>
+                      <span>2000s</span>
+                      <span>2010s</span>
+                      <span>2020s</span>
+                      <span>All 45Y</span>
+                    </div>
+                  </div>
+                  <div class="action-plan-duration-selector" id="action-plan-duration-selector" role="group" aria-label="Quick Decade Presets">
+                    <button type="button" class="duration-btn" data-decade="1980s" data-duration="1980s">1980s</button>
+                    <button type="button" class="duration-btn" data-decade="1990s" data-duration="1990s">1990s</button>
+                    <button type="button" class="duration-btn" data-decade="2000s" data-duration="2000s">2000s</button>
+                    <button type="button" class="duration-btn" data-decade="2010s" data-duration="2010s">2010s</button>
+                    <button type="button" class="duration-btn" data-decade="2020s" data-duration="2020s">2020s</button>
+                    <button type="button" class="duration-btn active" data-decade="all" data-duration="all">All 45Y</button>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="button button-small button-light" id="action-plan-lang-btn" title="Toggle English / Hindi">文 हिंदी / EN</button>
+              <button type="button" class="button button-small button-light" id="action-plan-refresh">↻ Refresh Live Data</button>
+              <button type="button" class="button button-small button-dark" id="action-plan-export">🖨️ Export PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- In-Page Navigation Bar -->
+        <nav class="action-plan-nav-bar" id="action-plan-nav-bar" aria-label="Action Plan Navigation">
+          <a href="#action-plan-answer-card" class="action-plan-nav-pill active">📋 Answer &amp; KPIs</a>
+          <a href="#action-plan-roadmap-card" class="action-plan-nav-pill">🌾 Farm Action Roadmap</a>
+          <a href="#action-plan-charts-section" class="action-plan-nav-pill">📈 Core Climate Charts</a>
+          <a href="#action-plan-rotations-section" class="action-plan-nav-pill">🌾 Crop Rotations</a>
+          <a href="#action-plan-more-details" class="action-plan-nav-pill">📊 More Parameters</a>
+          <a href="#action-plan-footer-section" class="action-plan-nav-pill">📜 Method &amp; Provenance</a>
+        </nav>
+
+        <!-- Data Transparency Banner matching Land Report -->
+        <div class="demo-disclaimer-banner" role="status">
+          <div class="demo-badge-pill">ⓘ SCIENTIFIC INTEGRITY NOTICE</div>
+          <p>
+            Historical climate records are retrieved live from the <strong>NASA POWER Daily Agroclimatology API (1981–Present)</strong> at ~0.5° resolution. Statistical projections to 2035 use Theil–Sen slopes and Mann–Kendall tests (only when statistically significant; <strong>not a weather forecast</strong>). 20-year rotation replay evaluates real daily weather against FAO-56 crop coefficients.
+          </p>
+        </div>
+
+        <div id="action-plan-empty" class="panel action-plan-state hidden" role="status">
+          <h2>Choose and save a field to continue</h2>
+          <p class="muted">Action Plan requires the selected field coordinates from your farm profile.</p>
+          <div style="display:flex; justify-content:center; gap:12px; margin-top:14px; flex-wrap:wrap;">
+            <button type="button" class="button button-dark" id="action-plan-select-field">Select field on map →</button>
+            <button type="button" class="button button-light" id="action-plan-load-sample">⚡ Load Sample Field (Bihar 25.86°N, 85.78°E)</button>
+          </div>
+        </div>
+        <div id="action-plan-loading" class="panel action-plan-state hidden" role="status">
+          <p style="font-weight: 700; color: var(--forest); margin-bottom: 6px;">🛰️ Querying NASA POWER Daily Point Archive…</p>
+          <p class="muted" style="font-size: .82rem;">Retrieving continuous daily agroclimatology from 1981 to present for your field coordinates.</p>
+        </div>
+        <div id="action-plan-error" class="panel action-plan-state action-plan-error hidden" role="alert"></div>
+
+        <div id="action-plan-content" class="action-plan-content hidden">
+
+          <!-- (1) ANSWER CARD: Headline + 4 KPIs (Rain, Temp, Onset, Dry Spell) with Significance Labels -->
+          <section class="panel action-plan-answer-card" id="action-plan-answer-card">
+            <div class="action-plan-card-head">
+              <div>
+                <p class="eyebrow">ANSWER FIRST · CLIMATE SHIFT SYNTHESIS (1981–PRESENT)</p>
+                <h2 id="action-plan-field-name">Selected Field</h2>
+                <p id="action-plan-coordinates" class="muted"></p>
+              </div>
+              <div id="action-plan-provenance" class="provenance-chips-container"></div>
+            </div>
+            <div id="action-plan-coverage" class="action-plan-coverage-pill"></div>
+            <div class="action-plan-headline-box">
+              <p id="action-plan-headline" class="action-plan-headline"></p>
+            </div>
+            <div id="action-plan-kpis" class="action-plan-kpis-grid"></div>
+          </section>
+
+          <!-- (1B) FARM ACTION ROADMAP: Key Issues, 4 Pillars, Seasonal Calendar, Progress & Expected Benefits -->
+          <!-- (1A) PERSONALIZED FARM DIAGNOSIS: Understanding Your Farm (Part 2) -->
+          <section class="panel action-plan-diagnosis-card" id="action-plan-diagnosis-card"></section>
+
+          <!-- (1B) FARM ACTION ROADMAP: 6 Categories (Part 3) -->
+          <section class="panel action-plan-roadmap-card" id="action-plan-roadmap-card"></section>
+
+          <!-- (1C) PERSONALIZED SEASONAL FARM CALENDAR: Kharif, Rabi, Zaid (Part 4) -->
+          <section class="panel action-plan-calendar-card" id="action-plan-calendar-card"></section>
+
+          <!-- (1D) PRIORITY-BASED ACTION TRACKER: Your Next Steps (Part 5) -->
+          <section class="panel action-plan-tracker-card" id="action-plan-tracker-card"></section>
+
+          <!-- (2) FOUR CHARTS: Rainfall, Temperature, Rainy-Season Onset, Longest Dry Spell -->
+          <section class="panel action-plan-charts-section" id="action-plan-charts-section">
+            <div class="action-plan-section-head">
+              <div>
+                <p class="eyebrow">HISTORICAL BASELINE (1991–2020) &amp; 2035 STATISTICAL PROJECTIONS</p>
+                <h2>Four Core Climate Trends</h2>
+              </div>
+              <span class="projection-disclaimer-pill">Statistical trend projection (not a climate-model forecast)</span>
+            </div>
+            <p class="muted">
+              Annual observations from NASA POWER, 1991–2020 WMO baseline, Theil–Sen slope, and dashed statistical projection to 2035 with 80% prediction interval for statistically significant trends.
+            </p>
+            <div id="action-plan-core-charts" class="action-plan-chart-grid four-charts-grid"></div>
+          </section>
+
+          <!-- (3) ACTION SECTION: Best Rotation + 2 Alternatives with Rainfed/Irrigated Toggle -->
+          <section class="panel action-plan-rotations-section" id="action-plan-rotations-section">
+            <div class="action-plan-section-head">
+              <div>
+                <p class="eyebrow">EVIDENCE-BACKED ADAPTATION · 20-YEAR HISTORICAL REPLAY</p>
+                <h2>Recommended Crop Rotations</h2>
+              </div>
+              <!-- Scenario Toggle: Rainfed vs Irrigated -->
+              <div class="scenario-toggle-wrap" role="group" aria-label="Water Scenario Toggle">
+                <span class="scenario-toggle-label">WATER SCENARIO:</span>
+                <button type="button" class="scenario-btn active" id="scenario-btn-rainfed" data-scenario="rainfed">🌧️ Rainfed</button>
+                <button type="button" class="scenario-btn" id="scenario-btn-irrigated" data-scenario="irrigated">💧 Irrigated</button>
+              </div>
+            </div>
+            <div id="action-plan-replay-status" class="action-plan-replay-status muted"></div>
+            <div id="action-plan-rotations" class="action-plan-rotations-list"></div>
+          </section>
+
+          <!-- COLLAPSED: More Parameters -->
+          <details class="panel action-plan-more-details" id="action-plan-more-details">
+            <summary class="more-details-summary">
+              <span>📊 More Parameters &amp; Multidecadal Records</span>
+              <span class="more-summary-hint">(Thermal stress, reference ET₀, soil wetness, solar &amp; multidecadal table)</span>
+            </summary>
+            <div class="more-details-content">
+              <div id="action-plan-secondary-charts" class="action-plan-chart-grid secondary-charts-grid"></div>
+              <div class="action-plan-table-wrap" style="margin-top: 16px;">
+                <h3 style="margin-bottom: 8px; font-size: 1rem; color: var(--ap-forest);">Multidecadal Extremes (1980s–2020s)</h3>
+                <div id="action-plan-extremes"></div>
+              </div>
+            </div>
+          </details>
+
+          <!-- (4) FOOTER: Method, limits, provenance chips -->
+          <footer class="panel action-plan-footer-panel" id="action-plan-footer-section">
+            <div class="action-plan-section-head">
+              <div>
+                <p class="eyebrow">TRANSPARENCY &amp; SCIENTIFIC LIMITS</p>
+                <h2>Method, Data Sources &amp; Constraints</h2>
+              </div>
+              <div id="action-plan-footer-provenance" class="provenance-chips-container"></div>
+            </div>
+            <div id="action-plan-method" class="action-plan-method-text"></div>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    
+    <!-- Modal 1: Compare Up to 3 Rotations -->
+    <div id="rotation-comparison-modal" class="krishiniti-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="comp-modal-title">
+      <div class="krishiniti-modal-dialog">
+        <div class="krishiniti-modal-header">
+          <h3 class="krishiniti-modal-title" id="comp-modal-title">⚖️ Compare Selected Crop Rotations</h3>
+          <button type="button" class="krishiniti-modal-close" id="btn-close-comp-modal" aria-label="Close modal">✕</button>
+        </div>
+        <div class="krishiniti-modal-body" id="comparison-modal-body">
+          <!-- Dynamically populated comparison table -->
+        </div>
+        <div class="krishiniti-modal-footer">
+          <button type="button" class="button button-light" id="btn-dismiss-comp-modal">Close Comparison</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 2: Review & Confirm Action Plan Updates -->
+    <div id="rotation-apply-modal" class="krishiniti-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="apply-modal-title">
+      <div class="krishiniti-modal-dialog">
+        <div class="krishiniti-modal-header" style="background: #f0fdf4; border-bottom: 1px solid #bbf7d0;">
+          <h3 class="krishiniti-modal-title" id="apply-modal-title" style="color: #166534;">🌾 Review &amp; Confirm Action Plan Modifications</h3>
+          <button type="button" class="krishiniti-modal-close" id="btn-close-apply-modal" aria-label="Close modal">✕</button>
+        </div>
+        <div class="krishiniti-modal-body" id="apply-modal-body">
+          <!-- Dynamically populated modification review diff -->
+        </div>
+        <div class="krishiniti-modal-footer">
+          <button type="button" class="button button-light" id="btn-cancel-apply-rotation">Cancel / Keep Current Plan</button>
+          <button type="button" class="button button-dark" id="btn-confirm-apply-rotation" style="background: #166534; font-weight: 800;">✓ Confirm and Apply Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <footer><strong>KRISHINITI <span>✳</span></strong><span>A farmer-first prototype · Not yet an agricultural advisory</span></footer>
+  </div>
+
+</body>
+</html>
