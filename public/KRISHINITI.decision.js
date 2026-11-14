@@ -136,18 +136,35 @@
     };
 
     let data = null;
-    try {
-      const res = await fetch("/api/decision/evaluate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(decisionPayload)
-      });
+    const isStaticHost = typeof window !== "undefined" && (
+      window.location.hostname.endsWith("github.io") ||
+      window.location.protocol === "file:" ||
+      !window.location.port
+    );
 
-      if (res.ok) {
-        data = await res.json();
+    // Fast client execution on static hosting (0 ms network delay)
+    if (isStaticHost && typeof window !== "undefined" && typeof window.evaluateClientDecision === "function") {
+      try {
+        data = window.evaluateClientDecision(decisionPayload);
+      } catch (err) {
+        console.warn("[KRISHINITI-Decision] Client evaluation error:", err);
       }
-    } catch (fetchErr) {
-      console.warn("[KRISHINITI-Decision] Remote API unavailable, checking client engine fallback:", fetchErr.message);
+    }
+
+    if (!data) {
+      try {
+        const res = await fetch("/api/decision/evaluate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(decisionPayload)
+        });
+
+        if (res.ok) {
+          data = await res.json();
+        }
+      } catch (fetchErr) {
+        console.warn("[KRISHINITI-Decision] Remote API unavailable, checking client engine fallback:", fetchErr.message);
+      }
     }
 
     if (!data && typeof window !== "undefined" && typeof window.evaluateClientDecision === "function") {

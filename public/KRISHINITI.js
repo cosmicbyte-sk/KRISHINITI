@@ -1526,26 +1526,46 @@ async function triggerLandDetection(center, points) {
   activeLandDetectionAbort = new AbortController();
 
   let data = null;
-  try {
-    const payload = {
-      lat: center.lat,
-      lng: center.lng,
-      polygon: Array.isArray(points) ? points.map(pt => ({ lat: pt.lat, lng: pt.lng })) : null
-    };
+  const isStaticHost = typeof window !== "undefined" && (
+    window.location.hostname.endsWith("github.io") ||
+    window.location.protocol === "file:" ||
+    !window.location.port
+  );
 
-    const res = await fetch("/api/land/detect", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      signal: activeLandDetectionAbort.signal
-    });
-
-    if (res.ok) {
-      data = await res.json();
+  if (isStaticHost && typeof window !== "undefined" && typeof window.detectLandTypeAndSuitability === "function") {
+    try {
+      data = await window.detectLandTypeAndSuitability({
+        lat: center.lat,
+        lng: center.lng,
+        polygon: Array.isArray(points) ? points.map(pt => ({ lat: pt.lat, lng: pt.lng })) : null
+      });
+    } catch (clientErr) {
+      console.warn("Client land detection engine error:", clientErr);
     }
-  } catch (err) {
-    if (err.name === "AbortError") return;
-    console.warn("Land detection fetch failed, trying client satellite engine:", err);
+  }
+
+  if (!data) {
+    try {
+      const payload = {
+        lat: center.lat,
+        lng: center.lng,
+        polygon: Array.isArray(points) ? points.map(pt => ({ lat: pt.lat, lng: pt.lng })) : null
+      };
+
+      const res = await fetch("/api/land/detect", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: activeLandDetectionAbort.signal
+      });
+
+      if (res.ok) {
+        data = await res.json();
+      }
+    } catch (err) {
+      if (err.name === "AbortError") return;
+      console.warn("Land detection fetch failed, trying client satellite engine:", err);
+    }
   }
 
   if (!data && typeof window !== "undefined" && typeof window.detectLandTypeAndSuitability === "function") {
@@ -1920,18 +1940,36 @@ async function probeFieldEnvironment(lat, lng) {
   }
 
   let data = null;
-  try {
-    const firstCropEl = $("crop-list")?.querySelector(".crop-name-select, select, input");
-    const cropVal = firstCropEl ? firstCropEl.value : "";
-    const cropQuery = cropVal ? `&crop=${encodeURIComponent(cropVal)}` : "";
-    const res = await fetch(`/api/farm/probe?lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}${cropQuery}`, {
-      headers: { Accept: "application/json" }
-    });
-    if (res.ok) {
-      data = await res.json();
+  const isStaticHost = typeof window !== "undefined" && (
+    window.location.hostname.endsWith("github.io") ||
+    window.location.protocol === "file:" ||
+    !window.location.port
+  );
+
+  if (isStaticHost && typeof window !== "undefined" && typeof window.getClientFarmProbe === "function") {
+    try {
+      const firstCropEl = $("crop-list")?.querySelector(".crop-name-select, select, input");
+      const cropVal = firstCropEl ? firstCropEl.value : "";
+      data = await window.getClientFarmProbe({ lat: Number(lat), lng: Number(lng), crop: cropVal });
+    } catch (probeErr) {
+      console.warn("Client farm probe error:", probeErr);
     }
-  } catch (err) {
-    console.warn("Remote satellite probe request failed:", err.message);
+  }
+
+  if (!data) {
+    try {
+      const firstCropEl = $("crop-list")?.querySelector(".crop-name-select, select, input");
+      const cropVal = firstCropEl ? firstCropEl.value : "";
+      const cropQuery = cropVal ? `&crop=${encodeURIComponent(cropVal)}` : "";
+      const res = await fetch(`/api/farm/probe?lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}${cropQuery}`, {
+        headers: { Accept: "application/json" }
+      });
+      if (res.ok) {
+        data = await res.json();
+      }
+    } catch (err) {
+      console.warn("Remote satellite probe request failed:", err.message);
+    }
   }
 
   if ((!data || data.status !== "ok") && typeof window !== "undefined" && typeof window.getClientFarmProbe === "function") {

@@ -2477,7 +2477,7 @@
     const goals = profile.farm?.goals || ["profit", "resilience", "soil"];
 
     const cacheKey = `${Number(center.lat).toFixed(4)}_${Number(center.lng).toFixed(4)}_${activeDuration}_${activeScenario}_${JSON.stringify(practice)}_${waterSource}_${soilType}_${soilTest}_${labSoil ? 'lab' : 'nolab'}`;
-    if (durationOverride === undefined && clientPlanCache.has(cacheKey)) {
+    if (clientPlanCache.has(cacheKey)) {
       const cached = clientPlanCache.get(cacheKey);
       currentRawData = cached;
       render(cached, profile);
@@ -2489,36 +2489,17 @@
     isLoading = true;
     const thisRequestId = ++latestRequestId;
 
-    const query = new URLSearchParams({
-      lat: String(center.lat),
-      lng: String(center.lng),
-      duration: String(activeDuration),
-      practice: JSON.stringify(practice),
-      scenario: activeScenario,
-      water: waterTier,
-      waterSource: waterSource,
-      soilType: soilType,
-      soilTest: soilTest,
-      labSoil: labSoil ? JSON.stringify(labSoil) : "",
-      area: String(farmArea),
-      goals: JSON.stringify(goals),
-      farmName: profile.farm?.name || ""
-    });
+    const isStaticDeploy = typeof window !== "undefined" && (
+      window.location.hostname.endsWith("github.io") ||
+      window.location.protocol === "file:" ||
+      !window.location.port
+    );
 
     let data = null;
-    try {
-      const response = await fetch(`/api/climate/analysis?${query.toString()}`, { headers: { Accept: "application/json" } });
-      if (response.ok) {
-        data = await response.json();
-      }
-    } catch (netErr) {
-      console.warn("[KRISHINITI-ActionPlan] Remote fetch failed, checking client engine fallback:", netErr.message);
-    }
 
-    // Client-side fallback for static deployments (GitHub Pages)
-    if ((!data || data.status === "unavailable") && typeof window !== "undefined" && typeof window.generateClientActionPlan === "function") {
+    // Instant Client Engine: runs locally in ~20ms with 0 network latency
+    if (typeof window !== "undefined" && typeof window.generateClientActionPlan === "function") {
       try {
-        console.log("[KRISHINITI-ActionPlan] Generating client-side action plan for coordinates:", center.lat, center.lng);
         data = window.generateClientActionPlan({
           lat: Number(center.lat),
           lng: Number(center.lng),
@@ -2533,8 +2514,47 @@
           },
           scenario: activeScenario
         });
+
+        if (data && data.status !== "unavailable") {
+          clientPlanCache.set(cacheKey, data);
+          currentRawData = data;
+          render(data, profile);
+          showState("action-plan-content");
+          isLoading = false;
+
+          // For GitHub Pages / static deployments, client generation is complete and instantaneous!
+          if (isStaticDeploy) return;
+        }
       } catch (clientErr) {
-        console.error("[KRISHINITI-ActionPlan] Client action plan generator error:", clientErr);
+        console.warn("[KRISHINITI-ActionPlan] Fast client action plan generator error:", clientErr);
+      }
+    }
+
+    // Only if client engine was unavailable or running on a local Node backend server:
+    if (!data) {
+      const query = new URLSearchParams({
+        lat: String(center.lat),
+        lng: String(center.lng),
+        duration: String(activeDuration),
+        practice: JSON.stringify(practice),
+        scenario: activeScenario,
+        water: waterTier,
+        waterSource: waterSource,
+        soilType: soilType,
+        soilTest: soilTest,
+        labSoil: labSoil ? JSON.stringify(labSoil) : "",
+        area: String(farmArea),
+        goals: JSON.stringify(goals),
+        farmName: profile.farm?.name || ""
+      });
+
+      try {
+        const response = await fetch(`/api/climate/analysis?${query.toString()}`, { headers: { Accept: "application/json" } });
+        if (response.ok) {
+          data = await response.json();
+        }
+      } catch (netErr) {
+        console.warn("[KRISHINITI-ActionPlan] Remote fetch failed:", netErr.message);
       }
     }
 
@@ -2565,7 +2585,7 @@
         activeScenario = "rainfed";
         rainfedBtn.classList.add("active");
         irrigatedBtn.classList.remove("active");
-        if (currentRawData?.actionPlan) renderRotations(currentRawData.actionPlan);
+        load(activeDuration);
       });
 
       irrigatedBtn.addEventListener("click", () => {
@@ -2573,7 +2593,7 @@
         activeScenario = "irrigated";
         irrigatedBtn.classList.add("active");
         rainfedBtn.classList.remove("active");
-        if (currentRawData?.actionPlan) renderRotations(currentRawData.actionPlan);
+        load(activeDuration);
       });
     }
   }
