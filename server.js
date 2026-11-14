@@ -869,6 +869,11 @@ app.get("/api/health", (req, res) => {
 // Serve static frontend assets from ./public
 app.use(express.static(path.join(__dirname, "public")));
 
+// Route root / directly to KRISHINITI.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "KRISHINITI.html"));
+});
+
 // AI Explanation endpoint with resilient model fallback and exponential backoff
 app.post("/api/explain", aiExplainLimiter, async (req, res) => {
   try {
