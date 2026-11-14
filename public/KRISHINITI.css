@@ -167,7 +167,7 @@ main { width: min(1440px, 100%); margin: auto; padding: 38px clamp(18px, 5vw, 76
 .hero-copy { padding: 35px 0; }
 .status-label { display: inline-flex; align-items: center; gap: 9px; padding: 9px 12px; background: #e9eee4; border-radius: 99px; color: var(--forest); font-size: .65rem; letter-spacing: .9px; font-weight: 800; }
 .status-label span { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
-.hero h1 { font-size: clamp(3rem, 5.7vw, 5.5rem); line-height: 1.02; letter-spacing: -3.7px; margin: 28px 0 22px; }
+.hero h1 { font-size: clamp(2.8rem, 5.5vw, 5.2rem); line-height: 1.1; letter-spacing: -1.5px; margin: 28px 0 22px; }
 .hero h1 em { color: var(--green); font-style: normal; }
 .hero-copy > p { max-width: 480px; color: var(--muted); font-size: 1rem; line-height: 1.9; margin-bottom: 26px; }
 .hero-footnote { display: flex; align-items: center; gap: 9px; margin-top: 25px; color: var(--muted); font-size: .75rem; }

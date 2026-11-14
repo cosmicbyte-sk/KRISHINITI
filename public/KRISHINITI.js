@@ -1525,6 +1525,7 @@ async function triggerLandDetection(center, points) {
   }
   activeLandDetectionAbort = new AbortController();
 
+  let data = null;
   try {
     const payload = {
       lat: center.lat,
@@ -1539,16 +1540,30 @@ async function triggerLandDetection(center, points) {
       signal: activeLandDetectionAbort.signal
     });
 
-    if (!res.ok) {
-      throw new Error(`Land detection returned status ${res.status}`);
+    if (res.ok) {
+      data = await res.json();
     }
-
-    const data = await res.json();
-    currentLandDetectionState = data;
-    renderLandDetectionResult(data);
   } catch (err) {
     if (err.name === "AbortError") return;
-    console.warn("Land detection fetch failed:", err);
+    console.warn("Land detection fetch failed, trying client satellite engine:", err);
+  }
+
+  if (!data && typeof window !== "undefined" && typeof window.detectLandTypeAndSuitability === "function") {
+    try {
+      data = await window.detectLandTypeAndSuitability({
+        lat: center.lat,
+        lng: center.lng,
+        polygon: Array.isArray(points) ? points.map(pt => ({ lat: pt.lat, lng: pt.lng })) : null
+      });
+    } catch (clientErr) {
+      console.warn("Client land detection engine error:", clientErr);
+    }
+  }
+
+  if (data) {
+    currentLandDetectionState = data;
+    renderLandDetectionResult(data);
+  } else {
     currentLandDetectionState = {
       landType: "Unknown",
       shortLandType: "Unknown",
@@ -1904,6 +1919,7 @@ async function probeFieldEnvironment(lat, lng) {
     bannerCoords.textContent = `${Number(lat).toFixed(4)}°N, ${Number(lng).toFixed(4)}°E`;
   }
 
+  let data = null;
   try {
     const firstCropEl = $("crop-list")?.querySelector(".crop-name-select, select, input");
     const cropVal = firstCropEl ? firstCropEl.value : "";
@@ -1911,9 +1927,24 @@ async function probeFieldEnvironment(lat, lng) {
     const res = await fetch(`/api/farm/probe?lat=${encodeURIComponent(lat)}&lng=${encodeURIComponent(lng)}${cropQuery}`, {
       headers: { Accept: "application/json" }
     });
-    if (!res.ok) throw new Error(`Probe endpoint returned HTTP ${res.status}`);
-    const data = await res.json();
-    if (!data || data.status !== "ok") throw new Error("Invalid probe payload");
+    if (res.ok) {
+      data = await res.json();
+    }
+  } catch (err) {
+    console.warn("Remote satellite probe request failed:", err.message);
+  }
+
+  if ((!data || data.status !== "ok") && typeof window !== "undefined" && typeof window.getClientFarmProbe === "function") {
+    try {
+      const firstCropEl = $("crop-list")?.querySelector(".crop-name-select, select, input");
+      const cropVal = firstCropEl ? firstCropEl.value : "";
+      data = await window.getClientFarmProbe({ lat: Number(lat), lng: Number(lng), crop: cropVal });
+    } catch (probeErr) {
+      console.warn("Client farm probe error:", probeErr);
+    }
+  }
+
+  if (data && data.status === "ok") {
     latestFieldProbeData = data;
     applyFieldProbeToUI(data);
 
@@ -1923,8 +1954,8 @@ async function probeFieldEnvironment(lat, lng) {
       currProfile.farm.probedIntelligence = data;
       try { localStorage.setItem(PROFILE_KEY, JSON.stringify(currProfile)); } catch (e) {}
     }
-  } catch (err) {
-    console.warn("Satellite probe request failed, applying agro-ecological reference baseline:", err);
+  } else {
+    console.warn("Satellite probe request failed, applying agro-ecological reference baseline");
     applyFieldProbeFallback(lat, lng);
   }
 }

@@ -117,45 +117,58 @@
       }
     }
 
+    const decisionPayload = {
+      lat: profile.lat,
+      lng: profile.lng,
+      priority: profile.priority,
+      soil: {
+        ph: soilPh,
+        organicCarbon: soilSoc,
+        texture: soilTexture,
+        clay: soilClay,
+        sand: soilSand,
+        provenance: profile.labSoil ? "LAB_VERIFIED" : "SATELLITE_MODEL"
+      },
+      climate: { annualRainfallMm },
+      water: { access: profile.water },
+      previousCrops: profile.crops,
+      fieldAreaAcres: decisionState.rainBankParams.fieldAreaAcres
+    };
+
+    let data = null;
     try {
       const res = await fetch("/api/decision/evaluate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          lat: profile.lat,
-          lng: profile.lng,
-          priority: profile.priority,
-          soil: {
-            ph: soilPh,
-            organicCarbon: soilSoc,
-            texture: soilTexture,
-            clay: soilClay,
-            sand: soilSand,
-            provenance: profile.labSoil ? "LAB_VERIFIED" : "SATELLITE_MODEL"
-          },
-          climate: { annualRainfallMm },
-          water: { access: profile.water },
-          previousCrops: profile.crops,
-          fieldAreaAcres: decisionState.rainBankParams.fieldAreaAcres
-        })
+        body: JSON.stringify(decisionPayload)
       });
 
-      if (!res.ok) {
-        throw new Error(`Decision API returned HTTP ${res.status}`);
+      if (res.ok) {
+        data = await res.json();
       }
-
-      const data = await res.json();
-      decisionState.data = data;
-      decisionState.status = 'ready';
-
-      updateDashboardCards(data);
-      updateDashboardRecommendations(data.recommendations);
-      return data;
-    } catch (err) {
-      console.error("[KRISHINITI-Decision] Evaluation error:", err);
-      decisionState.status = 'error';
-      throw err;
+    } catch (fetchErr) {
+      console.warn("[KRISHINITI-Decision] Remote API unavailable, checking client engine fallback:", fetchErr.message);
     }
+
+    if (!data && typeof window !== "undefined" && typeof window.evaluateClientDecision === "function") {
+      try {
+        data = window.evaluateClientDecision(decisionPayload);
+      } catch (clientErr) {
+        console.warn("[KRISHINITI-Decision] Client evaluation failed:", clientErr);
+      }
+    }
+
+    if (!data) {
+      decisionState.status = 'error';
+      throw new Error("Decision engine could not evaluate crops.");
+    }
+
+    decisionState.data = data;
+    decisionState.status = 'ready';
+
+    updateDashboardCards(data);
+    updateDashboardRecommendations(data.recommendations);
+    return data;
   }
 
   /**

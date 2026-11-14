@@ -11,7 +11,10 @@
   }
 
   function internalRequire(name) {
-    const key = name.replace(/^(./|../)/, "").replace(/\.js$/, "");
+    let key = String(name);
+    if (key.startsWith("./")) key = key.slice(2);
+    else if (key.startsWith("../")) key = key.slice(3);
+    if (key.endsWith(".js")) key = key.slice(0, -3);
     if (cache[key]) return cache[key].exports;
     const module = { exports: {} };
     cache[key] = module;
@@ -7063,8 +7066,45 @@ module.exports = {
     };
   }
 
+  function evaluateClientDecision({ soil = {}, climate = {}, water = {}, terrain = {}, previousCrops = [], fieldAreaAcres = 4.2, lat = 25.7512, lng = 86.0241, priority = "balanced" } = {}) {
+    const di = internalRequire("decision_intelligence");
+    const safeSoil = {
+      ph: soil.ph ?? 6.8,
+      organicCarbon: soil.organicCarbon ?? soil.soc ?? 0.57,
+      texture: soil.texture ?? "Loam",
+      clay: soil.clay ?? 28,
+      sand: soil.sand ?? 45,
+      provenance: soil.provenance || "SATELLITE_MODEL"
+    };
+    const safeClimate = {
+      annualRainfallMm: climate.annualRainfallMm || 1184
+    };
+    const suitability = di.evaluateCropSuitability({ soil: safeSoil, climate: safeClimate, water, previousCrops });
+    const rotation = di.evaluateCropRotationSequences(previousCrops, { soil: safeSoil, climate: safeClimate, water, lat, lng, priority });
+    const rainBank = di.calculateRainBankPotential({ fieldAreaAcres, annualRainfallMm: safeClimate.annualRainfallMm });
+    const recommendations = di.generateFarmingRecommendations({ soil: safeSoil, climate: safeClimate, water, terrain });
+
+    return {
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      suitability,
+      rotation,
+      rainBank,
+      recommendations,
+      clientExecuted: true
+    };
+  }
+
+  async function getClientFarmProbe({ lat, lng, crop = null, soilType = null, water = null, priority = null } = {}) {
+    const fpi = internalRequire("farm_profile_intelligence");
+    return await fpi.getFarmProfileIntelligence({ lat, lng, crop, soilType, water, priority });
+  }
+
   global.generateClientActionPlan = generateClientActionPlan;
+  global.evaluateClientDecision = evaluateClientDecision;
+  global.getClientFarmProbe = getClientFarmProbe;
+  global.krishInternalRequire = internalRequire;
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { generateClientActionPlan };
+    module.exports = { generateClientActionPlan, evaluateClientDecision, getClientFarmProbe, internalRequire };
   }
 })(typeof window !== "undefined" ? window : globalThis);

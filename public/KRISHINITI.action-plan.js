@@ -2505,36 +2505,53 @@
       farmName: profile.farm?.name || ""
     });
 
+    let data = null;
     try {
       const response = await fetch(`/api/climate/analysis?${query.toString()}`, { headers: { Accept: "application/json" } });
-      const data = await response.json();
-      if (thisRequestId !== latestRequestId) return; // Prevent race conditions!
-
-      if (!response.ok || data.status === "unavailable") {
-        element("action-plan-error").innerHTML = `<p>${escapeHtml(data.error || "NASA data unavailable.")}</p>
-          <div>${provenanceMarkup(data, data.parameters, "UNAVAILABLE")}</div>`;
-        showState("action-plan-error");
-        isLoading = false;
-        return;
+      if (response.ok) {
+        data = await response.json();
       }
-      clientPlanCache.set(cacheKey, data);
-      currentRawData = data;
-      render(data, profile);
-      showState("action-plan-content");
-    } catch (error) {
-      if (thisRequestId !== latestRequestId) return;
-      showState("action-plan-error");
-      element("action-plan-error").innerHTML = `<p>${escapeHtml(error.message || "NASA data unavailable.")}</p>
-        <div>${provenanceMarkup({
-          status: "unavailable",
-          source: "NASA POWER Daily Point API",
-          retrievedAt: new Date().toISOString()
-        }, [], "UNAVAILABLE")}</div>`;
-    } finally {
-      if (thisRequestId === latestRequestId) {
-        isLoading = false;
+    } catch (netErr) {
+      console.warn("[KRISHINITI-ActionPlan] Remote fetch failed, checking client engine fallback:", netErr.message);
+    }
+
+    // Client-side fallback for static deployments (GitHub Pages)
+    if ((!data || data.status === "unavailable") && typeof window !== "undefined" && typeof window.generateClientActionPlan === "function") {
+      try {
+        console.log("[KRISHINITI-ActionPlan] Generating client-side action plan for coordinates:", center.lat, center.lng);
+        data = window.generateClientActionPlan({
+          lat: Number(center.lat),
+          lng: Number(center.lng),
+          practice,
+          farmContext: {
+            soilType,
+            waterAccess: waterTier,
+            labSoil,
+            area: farmArea,
+            goals,
+            farmName: profile.farm?.name || ""
+          },
+          scenario: activeScenario
+        });
+      } catch (clientErr) {
+        console.error("[KRISHINITI-ActionPlan] Client action plan generator error:", clientErr);
       }
     }
+
+    if (thisRequestId !== latestRequestId) return; // Prevent race conditions!
+
+    if (!data || data.status === "unavailable") {
+      element("action-plan-error").innerHTML = `<p>${escapeHtml(data?.error || "NASA data unavailable.")}</p>
+        <div>${provenanceMarkup(data || { status: "unavailable" }, data?.parameters || [], "UNAVAILABLE")}</div>`;
+      showState("action-plan-error");
+      isLoading = false;
+      return;
+    }
+    clientPlanCache.set(cacheKey, data);
+    currentRawData = data;
+    render(data, profile);
+    showState("action-plan-content");
+    isLoading = false;
   }
 
   // Bind scenario toggle buttons
