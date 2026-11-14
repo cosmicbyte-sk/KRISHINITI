@@ -2,7 +2,11 @@
 
 > **Evidence-Based Agricultural Decision-Support System**
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-GitHub_Pages-2ea44f?style=for-the-badge&logo=github)](https://cosmicbyte-sk.github.io/KRISHINITI/)
+
 KRISHINITI is an intelligent, grounded agricultural advisory platform designed to support farmers with deterministic crop suitability calculations, soil health diagnostics, weather risk mitigation, and AI-grounded explanations powered by Google Gemini.
+
+🌐 **Live Website**: [https://cosmicbyte-sk.github.io/KRISHINITI/](https://cosmicbyte-sk.github.io/KRISHINITI/)
 
 ---
 
@@ -34,7 +38,7 @@ KRISHINITI is an intelligent, grounded agricultural advisory platform designed t
 ### 2. Installation
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/<your-repo-name>.git
+git clone https://github.com/cosmicbyte-sk/KRISHINITI.git
 cd KRISHINITI
 
 # Install dependencies
